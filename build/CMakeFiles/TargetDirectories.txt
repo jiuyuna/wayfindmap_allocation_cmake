@@ -1,0 +1,3 @@
+/home/cyx/MapAllocation_cmake/build/CMakeFiles/rebuild_cache.dir
+/home/cyx/MapAllocation_cmake/build/CMakeFiles/edit_cache.dir
+/home/cyx/MapAllocation_cmake/build/CMakeFiles/my_cmake_test.dir
