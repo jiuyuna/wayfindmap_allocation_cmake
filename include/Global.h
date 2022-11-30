@@ -41,7 +41,8 @@ using namespace std;
 
 /*场景相关参数*/
 extern string scene_name;
-extern string allocation_method;
+extern int n_signages;
+
 extern int simulation_time;
 extern int stag_time; //行人看清指示牌停留时间]
 

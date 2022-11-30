@@ -43,12 +43,9 @@ Simulator::Simulator(double trial[], int num_signs)
     //控制文件输入
     if (saveTracks)
     {
-        oFile1 = new ofstream("/home/cyx/MapAllocation_cmake/result/data/demo.dat", ios::out | ios::trunc);
+        oFile1 = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/data/demo.dat", ios::out | ios::trunc);
     }
-    if (saveIndicatorsPerSecond)
-    {
-        oFile2->open("/home/cyx/MapAllocation_cmake/result/indicators_persecond/" + scene_name + "_s4_solution1_pre.csv", ios::out | ios::trunc);
-    }
+
 
     time_recoder = new Timer();
     time_recoder->reset();
@@ -63,10 +60,6 @@ Simulator::~Simulator()
         oFile1->close();
         delete oFile1;
         oFile1 = nullptr;
-    }
-    if (saveIndicatorsPerSecond)
-    {
-        oFile2->close();
     }
     delete time_recoder;
     delete time_recoder_anyplace;
@@ -887,10 +880,8 @@ void Simulator::run_simulation()
             //分析每秒各项参数变化
             //人数变化
             if (saveIndicatorsPerSecond)
-            {
-                if (oFile2)
-                    *oFile2 << (agents.size() == 0 ? 0 : (double)sum_pre / agents.size()) << ',';
-            }
+                outPressurePerSecond += (to_string((agents.size() == 0 ? 0 : (double)sum_pre / agents.size())) + ',');
+            
         }
 
         if (saveTracks)

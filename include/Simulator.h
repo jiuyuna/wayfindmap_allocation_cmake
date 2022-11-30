@@ -30,12 +30,14 @@ public:
     double pressure;
 
     //控制输出文件(多线程时请勿必关闭)
-    static const bool saveTracks = false;
+    static const bool saveTracks = true;
     static const bool saveIndicatorsPerSecond = false;
     static const bool saveTimeTableAndKeepSame = true;
+    string outPressurePerSecond = {}; //
+
     //文件输出接口
     ofstream *oFile1;
-    ofstream *oFile2;
+
     //记录运行时间
     Timer *time_recoder;
     Timer *time_recoder_anyplace;

@@ -5,7 +5,8 @@
 using namespace std;
 
 //参数设置 全局变量
-string scene_name = "scene3"; // scene1, scene2, scene3
+string scene_name = "scene2"; // scene1, scene2, scene3
+int n_signages = 4;
 int simulation_time = 12000;
 int stag_time = (1/tick) * 10; //行人看清指示牌停留时间
 int Width;
@@ -713,14 +714,14 @@ void initialize()
     cout << "==========initial start============" << endl;
     //初始化obstacles,导入环境信息
     cout << "reading obstacles info" << endl;
-    // string path = "/home/cyx/MapAllocation_cmake/config/scene1_coordinate.txt";
-    string path = "/home/cyx/MapAllocation_cmake/config/" + scene_name + "_coordinate.txt";
+    // string path = "/home/cyx/wayfindmap_allocation_cmake/config/scene1_coordinate.txt";
+    string path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_coordinate.txt";
     initial_obstical_lines(path);
 
     //初始化入口位置的信息
     cout << "reading entrance info" << endl;
-    string path1 = "/home/cyx/MapAllocation_cmake/config/" + scene_name + "_entrance.txt";
-    string path2 = "/home/cyx/MapAllocation_cmake/config/" + scene_name + "_greedy_allocation.txt";
+    string path1 = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_entrance.txt";
+    string path2 = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_greedy_allocation.txt";
     init_door(path1, path2);
 
     //网格化地图
@@ -728,13 +729,13 @@ void initialize()
     initMap(myMap);
 
     //保存行人可行的目的地
-    cout << "finding all feasibile path points" << endl;
+    cout << "finding all feasibile path points: ";
     initAvailablePoints();
     cout << available_points.size() << endl;
 
     //初始化入口流量以及行人到来的时间
-    string traffice_path = "/home/cyx/MapAllocation_cmake/config/" + scene_name + "_entrance_traffic.txt";
-    string timetable_path = "/home/cyx/MapAllocation_cmake/config/" + scene_name + "_pedenstrains_timetable.txt";
+    string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_entrance_traffic.txt";
+    string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_pedenstrains_timetable.txt";
     init_pedestrian(traffice_path, timetable_path);
 
     //构建路径图，读取全局最优路径信息
@@ -744,7 +745,7 @@ void initialize()
         hashmap[pos_id] = id;
     }
     // CreateMGraph(&G);
-    string shortPath = "/home/cyx/MapAllocation_cmake/config/" + scene_name + "_shortPathTable.txt";
+    string shortPath = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_shortPathTable.txt";
     ifstream ifile(shortPath, ios::out);
     ReadTable(ifile, shortPath);
     cout << "==========initial end============" << endl;

@@ -1,0 +1,1 @@
+g++ main.cpp src/*.cpp -Iinclude -pthread -o scene3_compare_10sign

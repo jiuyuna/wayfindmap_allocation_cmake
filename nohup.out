@@ -13638,3 +13638,54 @@ reading Multi-source shortest path table
 28individual_value:20 79 97 61 75 71 86 61 76.326 79.2 66 89 84 79 104 64 39.976 77.477 57 17 ---objective_value:120.769 54.0309 ---fitness_value:-31978.7 
 29individual_value:69.7 67.4949 23.0271 61 53.6 55.6 48 69 80.725 70.0669 55 77 104 61 64.6 60.2 23 75 68 61 ---objective_value:82.6637 73.0785 ---fitness_value:-1.04272e+06 
 30individual_value:47.1655 64.1277 96 61 1 86.2 45.16 72.1 53 65 63.7 66.8 58 89 64.6 60.2 41 68 35 61 ---objective_value:81.5933 76.8523 ---fitness_value:-13.6098 
+==========initial start============
+reading obstacles info
+reading entrance info
+initialize grid map
+finding all feasibile path points: 2526
+reading entrance traffic info
+reading pedenstrains timetable
+reading Multi-source shortest path table
+==========initial end============
+==========initial start============
+reading obstacles info
+reading entrance info
+initialize grid map
+finding all feasibile path points: 2526
+reading entrance traffic info
+reading pedenstrains timetable
+reading Multi-source shortest path table
+==========initial end============
+86.4127 89.808
+Total time : 44.03
+Total time : 5212.32
+==========initial start============
+reading obstacles info
+reading entrance info
+initialize grid map
+finding all feasibile path points: 2526
+reading entrance traffic info
+reading pedenstrains timetable
+reading Multi-source shortest path table
+==========initial end============
+Total time : 5095.59
+==========initial start============
+reading obstacles info
+reading entrance info
+initialize grid map
+finding all feasibile path points: 1521
+reading entrance traffic info
+reading pedenstrains timetable
+reading Multi-source shortest path table
+==========initial end============
+Total time : 1548.77
+==========initial start============
+reading obstacles info
+reading entrance info
+initialize grid map
+finding all feasibile path points: 1441
+reading entrance traffic info
+reading pedenstrains timetable
+reading Multi-source shortest path table
+==========initial end============
+Total time : 1688.66
