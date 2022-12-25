@@ -10,7 +10,7 @@
 #include <mutex>
 using namespace std;
 
-#define D 100 //最大的个体的维度（2*标识数）
+#define D 100 // 最大的个体的维度（2*标识数）
 
 mutex mymutex;
 
@@ -19,7 +19,7 @@ void simulation_ind(Individual *ind_cur)
 	int n_signages = ind_cur->indsize;
 	Simulator sim = Simulator(ind_cur->xreal, n_signages);
 	sim.run_simulation();
-	mymutex.lock(); //需要互斥访问
+	mymutex.lock(); // 需要互斥访问
 	ind_cur->obj[0] += sim.avg_time;
 	ind_cur->obj[1] += sim.avg_max_pressure;
 	mymutex.unlock();
@@ -29,7 +29,7 @@ void simulation_trial(double trial[], ofstream *outfile)
 {
 	Simulator sim = Simulator(trial, n_signages);
 	sim.run_simulation();
-	mymutex.lock(); //需要互斥访问
+	mymutex.lock(); // 需要互斥访问
 	*outfile << sim.avg_time << ',' << sim.avg_max_pressure << endl;
 	mymutex.unlock();
 }
@@ -38,37 +38,62 @@ void simulation_recordPre(double trial[], ofstream *outfile)
 {
 	Simulator sim = Simulator(trial, n_signages);
 	sim.run_simulation();
-	mymutex.lock(); //需要互斥访问
+	mymutex.lock(); // 需要互斥访问
 	*outfile << sim.outPressurePerSecond << endl;
 	mymutex.unlock();
 }
 
+
+
+
 int main()
 {
+	srand(0);
 	Timer time = Timer();
 	time.reset();
-	srand(12);
 	initialize();
 
-	string allocation_method = "scene2_arbitrary_ranksum"; // random, greedy, ibea, persecond,arbitrary
+	string allocation_method = "ibea";
 
 	if (allocation_method == "ibea")
 	{
-		IbeaSolver solver(30, 2 * n_signages, 1000, 30); //种群数、个体维度、最大迭代数、每个解的评估次数
+		IbeaSolver solver(50, 2 * n_signages, 300, 30); // 种群数、个体维度、最大迭代数、每个解的评估次数
+		cout << n_signages << endl;
 		solver.run();
-		cout << "Total time : " << time.elapsed() << endl;
 		return 0;
 	}
-	else if (allocation_method == "test_ind_eva")
+	else if (allocation_method == "heatMap")
 	{
-		double trial[D] = {47.1655, 64.1277, 102, 64, 17, 79, 100, 61, 31.2643, 61, 63.7, 66.8, 53.2, 51.604, 64.6, 60.2, 34, 66, 35, 61};
-		//贪心
-		// vector<ENTRANCE> temp(entrances);
-		// sort(temp.begin(), temp.end(), cmp2);
-		// for (int j = 0; j < n_signages; ++j)
+		// //scene1
+		// double trial[12][D] ={
+		// 	{20,2,38,20,20,38,2,20},
+		// 	{30, 9, 9, 32, 29, 32, 7, 12},
+		// 	{-1, -1, -1, -1, -1, -1, -1, -1},
+		// 	{29.9768,13.6345,7.3,20,18.0401,31.9698,13.301,6.18201}};
+		// //scene2
+		// double trial[12][D] ={
+		// 	{20,2,38,20,20,38,2,20},
+		// 	{29, 7, 30, 27, 8, 35, 11, 11},
+		// 	{18, 23, 20, 20, -1, -1, -1, -1},
+		// 	{34.3053,19.5625,16.1663,23.0176,23.1852,26.9779,18.6754,15.9084}};
+		// //scene3
+		// double trial[12][D] ={
+		// 	{57.4,37,38.5,73.5,23.5,66.5,57.4,77,98,62.5,23.5,73.5,68,17.5,12.5,57,31,70,3,87.5},
+		// 	{52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16},
+		// 	{13, 62, 24, 72, 41, 70, 52, 7, 52, 62, 52, 67, 63, 18, 64, 47, 77, 64, 102, 62},
+		// 	{60,66,104,61,72.7534,64.0564,86,61,32.9,72,25,61,54,48,44.0186,70.19,38,61,62.296,62.458 }
+		// or
+		//  {47.1655,64.1277,96,61,1,86.2,45.16,72.1,53,65,63.7,66.8,58,89,64.6,60.2,41,68,35,61}
+		//  };
+
+		double trial[D] = {52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16};
+
+		// randomly
+		// for (int i = 0; i < n_signages * 2; i += 2)
 		// {
-		// 	trial[2 * j] = temp[j].greedy_sign_x;
-		// 	trial[2 * j + 1] = temp[j].greedy_sign_y;
+		// 	int rnd = (int)randval(0, available_points.size());
+		// 	trial[i] = available_points[rnd].X;
+		// 	trial[i + 1] = available_points[rnd].Y;
 		// }
 
 		Individual *ind = new Individual(n_signages);
@@ -78,7 +103,7 @@ int main()
 			ind->xreal[i + 1] = trial[i + 1];
 		}
 
-		int num_threads = 1;
+		int num_threads = 30;
 		// while (1)
 		{
 			ind->obj[0] = 0;
@@ -99,6 +124,7 @@ int main()
 
 		cout << "Total time : " << time.elapsed() << endl;
 		time.reset();
+
 		return 0;
 	}
 	else if (allocation_method == "scene1_arbitrary")
@@ -233,7 +259,8 @@ int main()
 		cout << "Total time : " << time.elapsed() << endl;
 		return 0;
 	}
-	else if (allocation_method == "scene1_arbitrary_ranksum"){
+	else if (allocation_method == "scene1_arbitrary_ranksum")
+	{
 		// 1000 simulations
 		int num_simulations = 1000;
 		int num_threads = 30;
@@ -303,7 +330,7 @@ int main()
 		}
 
 		/*————————————————Selected solution————————————————*/
-		double trial_OPT[D] = {17.9341,11.3176,6,20,10.2354,5.7783,20,32.525};
+		double trial_OPT[D] = {17.9341, 11.3176, 6, 20, 10.2354, 5.7783, 20, 32.525};
 		of << "OPT" << endl;
 		n = 0;
 		while (n != num_simulations)
@@ -326,7 +353,8 @@ int main()
 		cout << "Total time : " << time.elapsed() << endl;
 		return 0;
 	}
-	else if (allocation_method == "scene2_arbitrary_ranksum"){
+	else if (allocation_method == "scene2_arbitrary_ranksum")
+	{
 		// 1000 simulations
 		int num_simulations = 1000;
 		int num_threads = 30;
@@ -396,7 +424,7 @@ int main()
 		}
 
 		/*————————————————Selected solution————————————————*/
-		double trial_OPT[D] = {33.8881,19.3932,14.388,25.3328,11.7037,7.4465,21.7801,33.81};
+		double trial_OPT[D] = {33.8881, 19.3932, 14.388, 25.3328, 11.7037, 7.4465, 21.7801, 33.81};
 		of << "OPT" << endl;
 		n = 0;
 		while (n != num_simulations)
@@ -520,7 +548,7 @@ int main()
 		// 1000 simulations
 		int num_simulations = 1000;
 		int num_threads = 30;
-		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/indicators_persecond/" + scene_name + "_"+ to_string(n_signages) + "avg_max_pre.csv", ios::out | ios::trunc);
+		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/indicators_persecond/" + scene_name + "_" + to_string(n_signages) + "avg_max_pre.csv", ios::out | ios::trunc);
 		/*————————————————Greedy————————————————*/
 		double trial_greedy[D] = {};
 		vector<ENTRANCE> temp(entrances);
@@ -612,6 +640,8 @@ int main()
 	}
 	else
 	{
+		// testcode
 		return 0;
 	}
 }
+

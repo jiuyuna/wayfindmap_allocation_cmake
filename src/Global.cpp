@@ -4,26 +4,26 @@
 
 using namespace std;
 
-//²ÎÊýÉèÖÃ È«¾Ö±äÁ¿
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È«ï¿½Ö±ï¿½ï¿½ï¿½
 string scene_name = "scene2"; // scene1, scene2, scene3
 int n_signages = 4;
 int simulation_time = 12000;
-int stag_time = (1/tick) * 10; //ÐÐÈË¿´ÇåÖ¸Ê¾ÅÆÍ£ÁôÊ±¼ä
+int stag_time = (1/tick) * 10; //ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½Í£ï¿½ï¿½Ê±ï¿½ï¿½
 int Width;
 int Height;
 
 bool saveTimeTableAndKeepSame = true;
 
 vector<OBSLINE> obstical_lines;
-vector<AGENT> all_agents; //ÀúÊ·ËùÓÐµÄÐÐÈËÐÅÏ¢
+vector<AGENT> all_agents; //ï¿½ï¿½Ê·ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 vector<ENTRANCE> entrances;
-vector<CPoint> available_points; //¼ÇÂ¼³¡¾°ÖÐ¿Éµ½´ïµÄµã
+vector<CPoint> available_points; //ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ð¿Éµï¿½ï¿½ï¿½Äµï¿½?1?7
 Patharc pathTable;
 
-//³õÊ¼»¯ÓÃµÄÈ«¾Öµ«ÊÇÁÙÊ±±äÁ¿
+//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ãµï¿½È«ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 unordered_map<string, int> hashmap;
 int myMap[MAX_Height][MAX_Width] = {};
-bool boolMap[MAX_Height][MAX_Width] = {false}; //ÓÃÓÚ±ê¼ÇÒÑ±éÀúµÄµã
+bool boolMap[MAX_Height][MAX_Width] = {false}; //ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½Ñ±ï¿½ï¿½ï¿½ï¿½Äµï¿½?1?7
 
 void initial_obstical_lines(string str)
 {
@@ -35,7 +35,7 @@ void initial_obstical_lines(string str)
         cout << "reading obstacles info failed" << endl;
         exit(1);
     }
-    //¿ªÊ¼µ¼Èë
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
     while (getline(infile, coordstr))
     {
         if (coordstr == "//door_coordinate")
@@ -75,7 +75,7 @@ void initial_obstical_lines(string str)
                     obs.sx = obs.ex;
                     obs.sy = obs.ey;
                 }
-                obs.ex = obstical_lines[obstical_lines.size() - 5].sx; //ÎªÁË·ÀÖ¹Òò¼ÆËã¾«¶ÈÎÊÌâÎ´±ÕºÏ£¬×îºóÒ»ÌõÏß¶ÎÊÖ¶¯±ÕºÏ
+                obs.ex = obstical_lines[obstical_lines.size() - 5].sx; //Îªï¿½Ë·ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ÕºÏ£ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ß¶ï¿½ï¿½Ö¶ï¿½ï¿½Õºï¿½?
                 obs.ey = obstical_lines[obstical_lines.size() - 5].sy;
                 obstical_lines.push_back(obs);
                 // obs.ex = obstical_lines[0].sx;
@@ -138,7 +138,7 @@ void initial_obstical_lines(string str)
                 {
                     break;
                 }
-                else if (coordstr == "--") //Á¬½Ó·û£¬½«Í¬Ò»ÕÏ°­Îï²»Í¬²¿·ÖÎÞÖØ¸´µØÁ¬½ÓÆðÀ´
+                else if (coordstr == "--") //ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½Í¬Ò»ï¿½Ï°ï¿½ï¿½ï²»Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 {
                     getline(infile, coordstr);
                     istringstream in(coordstr);
@@ -176,7 +176,7 @@ void initial_obstical_lines(string str)
                     //     obs.sx = obs.ex;
                     //     obs.sy = obs.ey;
                     // }
-                    // obs.ex = obstical_lines[obstical_lines.size() - 5].sx;//ÎªÁË·ÀÖ¹Òò¼ÆËã¾«¶ÈÎÊÌâÎ´±ÕºÏ£¬×îºóÒ»ÌõÏß¶ÎÊÖ¶¯±ÕºÏ
+                    // obs.ex = obstical_lines[obstical_lines.size() - 5].sx;//Îªï¿½Ë·ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ÕºÏ£ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ß¶ï¿½ï¿½Ö¶ï¿½ï¿½Õºï¿½?
                     // obs.ey = obstical_lines[obstical_lines.size() - 5].sy;
                     // obstical_lines.push_back(obs);
                 }
@@ -195,8 +195,8 @@ void initial_obstical_lines(string str)
     }
 
     if (scene_name == "scene3")
-    { //¶Ô´ó³¡¾°µÄÒ»¸öËõ·Å
-        // x¼ÓÉÏ550£¬y¼ÓÉÏ50
+    { //ï¿½Ô´ó³¡¾ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        // xï¿½ï¿½ï¿½ï¿½550ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½50
         for (size_t i = 0; i < obstical_lines.size(); i++)
         {
             obstical_lines[i].sx += 550;
@@ -209,7 +209,7 @@ void initial_obstical_lines(string str)
             obstical_lines[i].ey /= 10;
         }
     }
-    //¼ÆËã³¤¶È
+    //ï¿½ï¿½ï¿½ã³¤ï¿½ï¿½
     for (size_t i = 0; i < obstical_lines.size(); ++i)
         obstical_lines[i].d = sqrt((obstical_lines[i].sx - obstical_lines[i].ex) * (obstical_lines[i].sx - obstical_lines[i].ex) +
                                    (obstical_lines[i].sy - obstical_lines[i].ey) * (obstical_lines[i].sy - obstical_lines[i].ey));
@@ -261,7 +261,7 @@ void init_door(string path1, string path2)
                     temp_e.greedy_sign_y += 50;
                     temp_e.greedy_sign_y /= 10;
 
-                    //ÐÞ¸´bugÓÃ
+                    //ï¿½Þ¸ï¿½bugï¿½ï¿½
                     if (floor(temp_e.ex) == 25 && floor(temp_e.ey) == 66)
                     {
                         temp_e.ex = temp_e.ex + 1;
@@ -301,7 +301,7 @@ void init_door(string path1, string path2)
 
 void initMap(int table[][MAX_Width])
 {
-    //È·¶¨Íø¸ñ»¯³¤¶È
+    //È·ï¿½ï¿½ï¿½ï¿½ï¿½ñ»¯³ï¿½ï¿½ï¿½
     if (scene_name == "scene3")
     {
         Width = 120;
@@ -318,7 +318,7 @@ void initMap(int table[][MAX_Width])
         exit(1);
     }
 
-    //Éú³ÉÕÏ°­
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
     for (size_t i = 0; i < obstical_lines.size(); ++i)
     {
         int cur_x, cur_y;
@@ -388,7 +388,7 @@ void initMap(int table[][MAX_Width])
 
     if (scene_name == "scene3")
     {
-        //ÊÖ¶¯ÐÞ¸´Ò»Ð©³¡¾°
+        //ï¿½Ö¶ï¿½ï¿½Þ¸ï¿½Ò»Ð©ï¿½ï¿½ï¿½ï¿½
         table(61, 26) = 1;
         table(61, 27) = 1;
         table(61, 28) = 1;
@@ -400,12 +400,12 @@ void initMap(int table[][MAX_Width])
         table(62, 29) = 1;
         table(62, 30) = 1;
 
-        //°ÑµçÌÝ¾®¶ÂÉÏ ×ó
+        //ï¿½Ñµï¿½ï¿½Ý¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         table(28, 70) = 1;
         table(29, 70) = 1;
         table(28, 69) = 1;
         table(29, 69) = 1;
-        //ÓÒ
+        //ï¿½ï¿½
         table(73, 71) = 1;
         table(74, 71) = 1;
         table(73, 70) = 1;
@@ -414,23 +414,23 @@ void initMap(int table[][MAX_Width])
         table(74, 69) = 1;
         table(73, 68) = 1;
         table(74, 68) = 1;
-        //ÉÏ1
+        //ï¿½ï¿½1
         table(56, 79) = 1;
         table(57, 79) = 1;
         table(58, 79) = 1;
         table(59, 79) = 1;
 
-        //ÏÂ1
+        //ï¿½ï¿½1
         table(56, 59) = 1;
         table(57, 59) = 1;
         table(58, 59) = 1;
         table(59, 59) = 1;
-        //ÏÂ2
+        //ï¿½ï¿½2
         table(56, 39) = 1;
         table(57, 39) = 1;
         table(58, 39) = 1;
         table(59, 39) = 1;
-        //ÏÂ3
+        //ï¿½ï¿½3
         table(56, 16) = 1;
         table(57, 16) = 1;
         table(58, 16) = 1;
@@ -453,7 +453,7 @@ void initMap(int table[][MAX_Width])
     }
 }
 
-//ÓÃÓÚ²úÉúagent
+//ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½agent
 void creatAgent(int entrance_id, int create_time, int exit_id)
 {
     struct AGENT agent;
@@ -462,18 +462,18 @@ void creatAgent(int entrance_id, int create_time, int exit_id)
     agent.entrance_id = entrance_id;
     agent.exit_id = exit_id;
 
-    //¸ù¾ÝÈë¿ÚÉèÖÃagent.x y
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½agent.x y
     agent.x = entrances[entrance_id].sx < entrances[entrance_id].ex ? entrances[entrance_id].sx + randval(0, 1) * (entrances[entrance_id].ex - entrances[entrance_id].sx) : entrances[entrance_id].ex + randval(0, 1) * (entrances[entrance_id].sx - entrances[entrance_id].ex);
     agent.y = entrances[entrance_id].sy < entrances[entrance_id].ey ? entrances[entrance_id].sy + randval(0, 1) * (entrances[entrance_id].ey - entrances[entrance_id].sy) : entrances[entrance_id].ey + randval(0, 1) * (entrances[entrance_id].sy - entrances[entrance_id].ey);
 
-    //Ëæ»úÉú³ÉÖÕµã
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½?1?7
     agent.lgx = entrances[exit_id].sx < entrances[exit_id].ex ? entrances[exit_id].sx + 0.5 * (entrances[exit_id].ex - entrances[exit_id].sx) : entrances[exit_id].ex + randval(0, 1) * (entrances[exit_id].sx - entrances[exit_id].ex);
     agent.lgy = entrances[exit_id].sy < entrances[exit_id].ey ? entrances[exit_id].sy + 0.5 * (entrances[exit_id].ey - entrances[exit_id].sy) : entrances[exit_id].ey + randval(0, 1) * (entrances[exit_id].sy - entrances[exit_id].ey);
 
     agent.gx = agent.lgx;
     agent.gy = agent.lgy;
 
-    //³õÊ¼ËÙ¶ÈºÍÆäËû²ÎÊý
+    //ï¿½ï¿½Ê¼ï¿½Ù¶Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     agent.vx = randval(-1, 1);
     agent.vy = randval(-1, 1);
 
@@ -499,24 +499,24 @@ void creatAgent(int entrance_id, int create_time, int exit_id)
     agent.n_setp = 0;
     agent.n_setp_sign = 0;
 
-    //³õÊ¼»¯map
+    //ï¿½ï¿½Ê¼ï¿½ï¿½map
     for (int i = 0; i < Height; ++i)
         for (int j = 0; j < Width; ++j)
             agent.map[i][j] = 0;
 
-    //´´½¨Íê³É
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?1?7
     all_agents.push_back(agent);
 }
 
-//³õÊ¼»¯ÐÐÈËÐÅÏ¢()
+//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢()
 void init_pedestrian(string traffic_path, string timetable_path)
 {
-    // 1¡¢ÉèÖÃÈë¿ÚÁ÷Á¿
+    // 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?1?7
     ifstream ifile(traffic_path, ios::in);
     if (ifile)
     {
         cout << "reading entrance traffic info" << endl;
-        //¿ªÊ¼µ¼Èë
+        //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
         string traffic;
         size_t i = 0;
         while (getline(ifile, traffic))
@@ -524,7 +524,7 @@ void init_pedestrian(string traffic_path, string timetable_path)
             istringstream intr(traffic);
             if (i >= entrances.size())
             {
-                cout << "Á÷Á¿ÐÅÏ¢¶ÁÈ¡´íÎó£¬ÎÄ¼þÈë¿ÚÊýÓë³¡¾°Êµ¼ÊÈë¿ÚÊý²»Æ¥Åä" << endl;
+                cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë³¡ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½" << endl;
             }
             else
             {
@@ -534,11 +534,11 @@ void init_pedestrian(string traffic_path, string timetable_path)
     }
     else
     {
-        cout << "Èë¿ÚÁ÷Á¿ÎÄ¼þ²»´æÔÚ£¬¸ù¾ÝÕýÌ¬·Ö²¼Ô¤Éè²ÎÊý×Ô¶¯Éú³ÉÎÄ¼þ" << endl;
+        cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½Ö²ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½?" << endl;
 
         ofstream ofile(traffic_path, ios::out | ios::trunc);
 
-        //¸ù¾ÝÕýÌ¬·Ö²¼ÎªÃ¿¸öÈë¿ÚÉè¶¨Éú³ÉËÙÂÊ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¬ï¿½Ö²ï¿½ÎªÃ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿„1?7
         default_random_engine generator;
         normal_distribution<double> distribution(1.5, 0.5);
         for (size_t i = 0; i < entrances.size(); ++i)
@@ -553,7 +553,7 @@ void init_pedestrian(string traffic_path, string timetable_path)
     }
     ifile.close();
 
-    // 2¡¢¸ù¾ÝÁ÷ËÙµÃµ½ÐÐÈËµÄÐÅÏ¢£¬µ½À´Ê±¼ä¡¢Ä¿µÄµØ¡£
+    // 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÙµÃµï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä¡¢Ä¿ï¿½ÄµØ¡ï¿½
     if (saveTimeTableAndKeepSame)
     {
         ifile.open(timetable_path, ios::in);
@@ -571,32 +571,26 @@ void init_pedestrian(string traffic_path, string timetable_path)
         }
         else
         {
-            int generate_people_pertime = 100; //Ã¿generate_people_pertime/50ÃëÉú³ÉÒ»´ÎÐÐÈË 250
+            int generate_people_pertime = 50; //Ã¿generate_people_pertime/50ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 250
             int cur_sum_people = 0;
-            int need_sum_people = 600;
-            cout << "ÐÐÈËµ½À´Ê±¼ä±íÎÄ¼þ²»´æÔÚ£¬¸ù¾Ý²´ËÉ·Ö²¼Ô¤Éè²ÎÊý×Ô¶¯Éú³ÉÎÄ¼þ" << endl;
+            int need_sum_people = 500;//scene1/2:200,scene3:500
+            cout<<"cant find time table of pedestrains. generate here!"<<endl;
 
             ofstream ofile(timetable_path, ios::out);
             for (int i = 0; i < simulation_time; i++)
             {
-                //²´ËÉ·Ö²¼
-                if (i <= 4000 && i % generate_people_pertime == 0)
-                { //Ã¿n´Îµü´ú±íÊ¾1Ãë tick=0.02  n = 1/tick;
+                //ï¿½ï¿½ï¿½É·Ö²ï¿½
+                if (i % generate_people_pertime == 0)
+                { //Ã¿nï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½Ê¾1ï¿½ï¿½ tick=0.02  n = 1/tick;
                     for (size_t j = 0; j < entrances.size(); ++j)
                         entrances[j].num = 0;
-                    //Èë¿Ú½øÈË
+                    //ï¿½ï¿½Ú½ï¿½ï¿½ï¿½?1?7
                     for (size_t j = 0; j < entrances.size(); ++j)
                     {
-                        //¼ÙÉè¾ùÖµÎª1£¬Æ½¾ùÃ¿Ãë½øÈëÒ»¸öÈË
+                        //there's n_agents left to generate in entrance j.
                         int n_agents = poisson(entrances[j].generate_v);
                         entrances[j].num = n_agents;
                     }
-                }
-
-                if (i == 4001)
-                {
-                    for (size_t j = 0; j < entrances.size(); ++j)
-                        entrances[j].num = 0;
                 }
 
                 for (size_t j = 0; j < entrances.size(); ++j)
@@ -639,7 +633,7 @@ bool CanReach(int x, int y)
     return myMap[x][y] == 0;
 }
 
-/*ÕÒ³ö¿ÉÐÐµã£¬ÀëÉ¢*/
+/*ï¿½Ò³ï¿½ï¿½ï¿½ï¿½Ðµã£¬ï¿½ï¿½É¢*/
 void BFS_findponits(int x, int y)
 {
     if (scene_name == "scene3")
@@ -677,7 +671,7 @@ void BFS_findponits(int x, int y)
 void initAvailablePoints()
 {
     available_points.clear();
-    //Ò»¸ö¿ÉÐÐµãÄÚ¿ªÊ¼
+    //Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ú¿ï¿½Ê¼
     if (scene_name == "scene3")
         BFS_findponits(1, 89);
     else if (scene_name == "scene1" || scene_name == "scene2")
@@ -688,7 +682,7 @@ void ReadTable(ifstream &ifile, string shortPath)
 {
     if (!ifile)
     {
-        cout << "È«¾ÖÂ·¾¶ÎÄ¼þ²»´æÔÚ£¬Òì³£ÍË³ö" << endl;
+        cout << "È«ï¿½ï¿½Â·ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ì³£ï¿½Ë³ï¿½" << endl;
         exit(1);
     }
     cout << "reading Multi-source shortest path table" << endl;
@@ -708,44 +702,44 @@ void ReadTable(ifstream &ifile, string shortPath)
     ifile.close();
 }
 
-//³õÊ¼»¯doorºÍobstacles
+//ï¿½ï¿½Ê¼ï¿½ï¿½doorï¿½ï¿½obstacles
 void initialize()
 {
     cout << "==========initial start============" << endl;
-    //³õÊ¼»¯obstacles,µ¼Èë»·¾³ÐÅÏ¢
+    //ï¿½ï¿½Ê¼ï¿½ï¿½obstacles,ï¿½ï¿½ï¿½ë»·ï¿½ï¿½ï¿½ï¿½Ï¢
     cout << "reading obstacles info" << endl;
     // string path = "/home/cyx/wayfindmap_allocation_cmake/config/scene1_coordinate.txt";
     string path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_coordinate.txt";
     initial_obstical_lines(path);
 
-    //³õÊ¼»¯Èë¿ÚÎ»ÖÃµÄÐÅÏ¢
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ãµï¿½ï¿½ï¿½ï¿½?1?7
     cout << "reading entrance info" << endl;
     string path1 = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_entrance.txt";
     string path2 = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_greedy_allocation.txt";
     init_door(path1, path2);
 
-    //Íø¸ñ»¯µØÍ¼
+    //ï¿½ï¿½ï¿½ñ»¯µï¿½Í¼
     cout << "initialize grid map" << endl;
     initMap(myMap);
 
-    //±£´æÐÐÈË¿ÉÐÐµÄÄ¿µÄµØ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½Ðµï¿½Ä¿ï¿½Äµï¿½
     cout << "finding all feasibile path points: ";
     initAvailablePoints();
     cout << available_points.size() << endl;
 
-    //³õÊ¼»¯Èë¿ÚÁ÷Á¿ÒÔ¼°ÐÐÈËµ½À´µÄÊ±¼ä
+    //ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½?1?7
     string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_entrance_traffic.txt";
     string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_pedenstrains_timetable.txt";
     init_pedestrian(traffice_path, timetable_path);
 
-    //¹¹½¨Â·¾¶Í¼£¬¶ÁÈ¡È«¾Ö×îÓÅÂ·¾¶ÐÅÏ¢
+    //ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½È¡È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½Ï¢
     for (size_t id = 0; id < available_points.size(); ++id)
     {
         string pos_id = to_string(available_points[id].X) + "," + to_string(available_points[id].Y);
         hashmap[pos_id] = id;
     }
     // CreateMGraph(&G);
-    string shortPath = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_shortPathTable.txt";
+    string shortPath = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_shortPathTable_8direction.txt";
     ifstream ifile(shortPath, ios::out);
     ReadTable(ifile, shortPath);
     cout << "==========initial end============" << endl;
@@ -753,13 +747,13 @@ void initialize()
 
 CPoint *FindPath_staticFloyd(const CPoint& start, const CPoint& end)
 {
-    //¸ù¾ÝstartºÍendÈ·ÈÏid
+    //ï¿½ï¿½ï¿½ï¿½startï¿½ï¿½endÈ·ï¿½ï¿½id
     string pos_id = to_string(start.X) + "," + to_string(start.Y);
     int start_id = hashmap[pos_id];
     pos_id = to_string(end.X) + "," + to_string(end.Y);
     int end_id = hashmap[pos_id];
 
-    //¸ù¾Ýid²éÑ¯Â·¾¶
+    //ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½Ñ¯Â·ï¿½ï¿½
     int k = pathTable[start_id][end_id];
     CPoint *HeadList = new CPoint(-1, -1);
     HeadList->next = nullptr;
@@ -790,12 +784,12 @@ void FindPath_Agent_staticFloyd(AGENT *cur_agent, int desx, int desy)
     int e_x = desx;
     int e_y = desy;
 
-    //ÆðÊ¼Î»ÖÃ²»Ó¦¸ÃÊÇÕÏ°­Îï
+    //ï¿½ï¿½Ê¼Î»ï¿½Ã²ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½
     if(myMap[s_x][s_y]==1){
         surroundings_feasibility_point(cur_agent->x,cur_agent->y,s_x,s_y);
     }
 
-    //ÓÅ»¯ÐÐÈËºÍÖÕµãÖØºÏ£¬Ö±½Ó¸³Öµ
+    //ï¿½Å»ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Õµï¿½ï¿½ØºÏ£ï¿½Ö±ï¿½Ó¸ï¿½Öµ
     if (s_x == e_x && s_y == e_y)
     {
         vector<double> t;
@@ -833,12 +827,12 @@ void FindPath_Agent_staticFloyd(AGENT *cur_agent, int curx, int cury, int desx, 
     int e_x = desx;
     int e_y = desy;
 
-    //ÆðÊ¼Î»ÖÃ²»Ó¦¸ÃÊÇÕÏ°­Îï
+    //ï¿½ï¿½Ê¼Î»ï¿½Ã²ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½
     if(myMap[s_x][s_y]==1){
         surroundings_feasibility_point(s_x,s_y,s_x,s_y);
     }
 
-    //ÓÅ»¯ÐÐÈËºÍÖÕµãÖØºÏ£¬Ö±½Ó¸³Öµ
+    //ï¿½Å»ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½Õµï¿½ï¿½ØºÏ£ï¿½Ö±ï¿½Ó¸ï¿½Öµ
     if (s_x == e_x && s_y == e_y)
     {
         vector<double> t;
@@ -880,7 +874,7 @@ int left_right(point a, point b, double x, double y)
                               : -1;
 }
 
-//¹¦ÄÜ£ºÏß¶Îc,dºÍÖ±Ïßa,bÊÇ·ñÏà½»
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½ß¶ï¿½c,dï¿½ï¿½Ö±ï¿½ï¿½a,bï¿½Ç·ï¿½ï¿½à½»
 bool intersect1(point a, point b, point c, point d)
 {
     if (left_right(a, b, c.x, c.y) == 1 && left_right(a, b, d.x, d.y) == -1)
@@ -891,7 +885,7 @@ bool intersect1(point a, point b, point c, point d)
     // return  left_right(a, b, c.x, c.y) ^ left_right(a, b, d.x, d.y) == -2;
 }
 
-//¹¦ÄÜ£ºÅÐ¶ÏÏß¶Îc,dºÍÏß¶Îa,bÊÇ·ñÏà½»
+//ï¿½ï¿½ï¿½Ü£ï¿½ï¿½Ð¶ï¿½ï¿½ß¶ï¿½c,dï¿½ï¿½ï¿½ß¶ï¿½a,bï¿½Ç·ï¿½ï¿½à½»
 bool intersect(point a, point b, point c, point d)
 {
     return intersect1(a, b, c, d) && intersect1(c, d, a, b);
@@ -921,7 +915,7 @@ void surroundings_feasibility_point(double cur_x, double cur_y, int &dec_x, int 
     }
     else
     {
-        //ÕÒµ½mymap±êÊ¶Îª¿ÉÐÐÇøÓòµÄ¸½½üµØµã,ÇÒ²»±»×èµ²¡£
+        //ï¿½Òµï¿½mymapï¿½ï¿½Ê¶Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½Øµï¿½?1?7,ï¿½Ò²ï¿½ï¿½ï¿½ï¿½èµ²ï¿½ï¿½
         bool flag = false;
         int itr = 1;
         while (itr != 4)
@@ -936,7 +930,7 @@ void surroundings_feasibility_point(double cur_x, double cur_y, int &dec_x, int 
                         continue;
                     if (isObstacle(cur_x, cur_y, x, y))
                         continue;
-                    //Èç¹ûÉú³ÉµãºÍËùÔÚµãÖ®¼äÓÐÕÏ°­Ò²continue(ºóÃæÐ´¸ö¸öÅÐ¶ÏÁ½µã¼äÓÐÎÞÕÏ°­µÄº¯Êý)
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½Ò²continue(ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½Äºï¿½ï¿½ï¿½?1?7)
                     flag = true;
                     dec_x = x;
                     dec_y = y;
@@ -955,21 +949,21 @@ bool cmp2(const ENTRANCE left, const ENTRANCE right)
     return left.generate_v > right.generate_v;
 }
 
-//¶Ô¸ÃµãÅÐ¶ÏÊÇ·ñ¿ÉÐÐ¡£
+//ï¿½Ô¸Ãµï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ð¡ï¿½?1?7
 bool isFeasible(int x, int y) {
-    if (!CanReach(x, y)) return false; //ÔÚÕÏ°­ÎïÄÚ
+    if (!CanReach(x, y)) return false; //ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½
     for (size_t i = 0; i < available_points.size(); ++i) {
         CPoint P = available_points[i];
-        if (x == P.X && y == P.Y) return true; //¸Ãµã¿ÉÐÐ
+        if (x == P.X && y == P.Y) return true; //ï¿½Ãµï¿½ï¿½ï¿½ï¿½?1?7
     }
-    return false; //ÔÚ±ß½çÍâ
+    return false; //ï¿½Ú±ß½ï¿½ï¿½ï¿½
 }
 
-//Êä³öÒ»¸öµã£¬Èç¹û¸ÃµãÎ»ÓÚÕÏ°­ÄÚ»ò±ß½çÖÐ£¬Ôò·Å»ØÒ»¸öÐÞÕýÎ»ÖÃ£¬¸ÃÎ»ÖÃÎª¿ÉÐÐ½â¡£
+//ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½Ãµï¿½Î»ï¿½ï¿½ï¿½Ï°ï¿½ï¿½Ú»ï¿½ß½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½Å»ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½?ï¿½ï¿½ï¿½Ð½â¡£
 void Rectify(double orgin_x, double orgin_y, int& r_x, int& r_y) {
-    //1¡¢Ê×ÏÈ´ÓÖÜÎ§Ñ¡Ôñ¿ÉÐÐµã¡£
-    //2¡¢ÐèÒª¶Ô¸ÃµãÅÐ¶ÏÊÇ·ñÔÚ±ß½çÍâ¡£
-    //3¡¢·µ»Ø¸Ãµã
+    //1ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½Î§Ñ¡ï¿½ï¿½ï¿½ï¿½Ðµï¿½?1?7
+    //2ï¿½ï¿½ï¿½ï¿½Òªï¿½Ô¸Ãµï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½Ú±ß½ï¿½ï¿½â¡£
+    //3ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸Ãµï¿½
     double min = 10000;
     int itr = 1;
     
@@ -979,7 +973,7 @@ void Rectify(double orgin_x, double orgin_y, int& r_x, int& r_y) {
                 if (x<0 || x>Height || y<0 || y>Width) continue;
                 if (myMap[x][y] == 1) continue;
                 if (isFeasible(x, y)) {   
-                    //Èç¹ûÉú³ÉµãºÍËùÔÚµãÖ®¼äÓÐÕÏ°­Ò²continue(ºóÃæÐ´¸ö¸öÅÐ¶ÏÁ½µã¼äÓÐÎÞÕÏ°­µÄº¯Êý)
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½Ò²continue(ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½Äºï¿½ï¿½ï¿½?1?7)
                     double dist = (x - (int)orgin_x) * (x - (int)orgin_x) + (y - (int)orgin_y) * (y - (int)orgin_y);
                     if (dist < min) {
                         min = dist;
@@ -994,6 +988,25 @@ void Rectify(double orgin_x, double orgin_y, int& r_x, int& r_y) {
         itr++;
     }
     
-    if(min == 10000) cout << "error!ÕÒ²»µ½¿ÉÐÐ½â£¡ " << orgin_x << ' ' << orgin_y << endl;
+    if(min == 10000) cout << "error!ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½â£¡ " << orgin_x << ' ' << orgin_y << endl;
 
+}
+
+void findFeasiblePointSurrounding(double orgin_x, double orgin_y, double& r_x, double& r_y) {
+    int itr;
+    int ntry = 0;
+    while (ntry <= 50) {
+        ntry++;
+        double rx = randval(-2.0,2.0);
+        double ry = randval(-2.0,2.0);
+        double x = orgin_x + rx;
+        double y = orgin_y + ry;    
+        if (x<0 || x>Height || y<0 || y>Width) continue;
+        if (myMap[(int)x][(int)y] == 1) continue;
+        if (isObstacle(orgin_x, orgin_y,x,y)) continue;
+        r_x = x;
+        r_y = y;
+        //cout<<orgin_x<<' '<<orgin_y<<"->"<<r_x<<' '<<r_y<<endl;
+        break;
+    }   
 }

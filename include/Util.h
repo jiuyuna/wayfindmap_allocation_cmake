@@ -5,18 +5,19 @@
 #include <numeric> // for std::iota
 static int phase = 0;
 
-//=========================================Ëæ»úº¯Êı==============================================
-inline int random(int left, int right) { //ÔÚÇø¼ä[left,right]ÉÏÉú³ÉÒ»¸öËæ»úÕûÊı 
+
+//=========================================ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½==============================================
+inline int random(int left, int right) { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[left,right]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
     return (int)(left + ((double)rand() / RAND_MAX) * ((right)-(left)));
 };
-inline double random01() {  //ÔÚ[0,1]¼ä²úÉúËæ»úÊı 
+inline double random01() {  //ï¿½ï¿½[0,1]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
     return ((double)rand()) / RAND_MAX;
 }
-//²úÉúÇø¼ä[a,b]ÄÚµÄËæ»ú¸¡µãÊı
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½[a,b]ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 inline double randval(double a, double b) {
     return a + (b - a) * rand() / (double)RAND_MAX;
 }
-//¾ùÖµÎª0£¬·½²îÎª1£¿
+//ï¿½ï¿½ÖµÎª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª1ï¿½ï¿½
 inline double gaussrand_NORMAL()
 {
     static double V1, V2, S;
@@ -47,7 +48,7 @@ inline double U_Random()
     return f / 100;
 }
 
-//ÓÃÓÚ²úÉú²´ËÉ·Ö²¼µÄËæ»úÊı
+//ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É·Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 inline int poisson(double Lambda)
 {
     int k = 0;
@@ -64,7 +65,7 @@ inline int poisson(double Lambda)
 }
 
 
-//Ê±¼äÀà£¬ÓÃÓÚÎª³ÌĞò¼ÆÊ±¡£
+//Ê±ï¿½ï¿½ï¿½à£¬ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 class Timer
 {
 private:

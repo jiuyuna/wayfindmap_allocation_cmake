@@ -10,35 +10,34 @@
 class Simulator
 {
 public:
-    //µ±Ç°Ä£Äâid
+    //ï¿½ï¿½Ç°Ä£ï¿½ï¿½id
     int Simulator_id;
 
-    //Â·ÅÆĞÅÏ¢
+    //Â·ï¿½ï¿½ï¿½ï¿½Ï¢
     vector<SIGNAGE> signages;
-    int n_signages; //±êÊ¶Êı
+    int n_signages; //ï¿½ï¿½Ê¶ï¿½ï¿½
     int n_entrances;
-    //ĞĞÈËÏà¹Ø²ÎÊı
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½
     vector<AGENT> agents;
-    int sum_people;          //½øÈë×ÜÈËÊı
-    int getin, getout;       //ÓÃÓÚÍ³¼ÆtÊ±¼äÄÚ½øÈëµÄÈËÊıºÍÒÑ¾­³öÈ¥µÄÈËÊı
-    double total_time;       //ÓÃÓÚÍ³¼ÆËùÓÃĞĞÈËËù»¨·ÑµÄÊ±¼ä
-    double avg_max_pressure; //Æ½¾ùĞĞÈËËùÊÜµ½µÄ×î´óÑ¹Á¦
-    double sum_pre;          //Ä³Ò»Ê±¿Ì£¬ĞĞÈËÊÜµ½µÄ×ÜÑ¹Á¦
+    int sum_people;          //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int getin, getout;       //ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½tÊ±ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    double total_time;       //ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñµï¿½Ê±ï¿½ï¿½
+    double avg_max_pressure; //Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½
+    double sum_pre;          //Ä³Ò»Ê±ï¿½Ì£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½
 
-    // ×îÖÕĞèÒª·µ»ØµÄÁ½¸öÖ¸±ê
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
     double avg_time;
     double pressure;
-
-    //¿ØÖÆÊä³öÎÄ¼ş(¶àÏß³ÌÊ±ÇëÎğ±Ø¹Ø±Õ)
-    static const bool saveTracks = true;
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½(ï¿½ï¿½ï¿½ß³ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ø¹Ø±ï¿½)
+    static const bool saveTracks = false;
     static const bool saveIndicatorsPerSecond = false;
     static const bool saveTimeTableAndKeepSame = true;
     string outPressurePerSecond = {}; //
 
-    //ÎÄ¼şÊä³ö½Ó¿Ú
+    //ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½
     ofstream *oFile1;
 
-    //¼ÇÂ¼ÔËĞĞÊ±¼ä
+    //ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
     Timer *time_recoder;
     Timer *time_recoder_anyplace;
 

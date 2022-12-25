@@ -12,22 +12,23 @@ using namespace std;
 class IbeaSolver
 {
 public:
-	int popsize; //ÖÖÈºÊý
-	int indsize; //¸öÌåÎ¬¶È
-	int max_generations;//×î´óµü´ú´ÎÊý
-	int eva_num; //Ã¿¸ö½âÆÀ¹À¶àÉÙ´Î
-	static const int number_objective = 2; // Ä¿±êÊýÁ¿
+	int popsize; //ï¿½ï¿½Èºï¿½ï¿½
+	int indsize; //ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½
+	int max_generations;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int eva_num; //Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù´ï¿½
+	static const int number_objective = 2; // Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int n_signages;
 
 	Population* parent_pop;
 	Population* offspring_pop;
 	Population* mixed_pop;
 
-	//±£´æ¸öÌåiºÍ¸öÌåj¼ä¼ÆËã³öµÄÖ¸±êÖµ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½Í¸ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Öµ
 	std::vector<std::vector<double>> Indicator_value;
 	std::vector<int> flag;
+	std::vector<double> hv_values;
 
-	//Êä³ö½Ó¿Ú£¬Êä³öÃ¿´úµÄ½á¹û
+	//ï¿½ï¿½ï¿½ï¿½Ó¿Ú£ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½Ä½ï¿½ï¿½
     ofstream *outfile;
 
 	IbeaSolver(int pop_size, int ind_size,int max_gens, int num_eva);
@@ -41,6 +42,7 @@ public:
 	void merge();
     void calcFitness();
 	double cal_eps_indicator(Individual* ind1, Individual* ind2);
+	void caculator_hv2D(Population *pop);
 	void environmental_selection();
 	void ibea_selection();
 	void track_evolution(int generations);
