@@ -85,8 +85,9 @@ int main()
 		// or
 		//  {47.1655,64.1277,96,61,1,86.2,45.16,72.1,53,65,63.7,66.8,58,89,64.6,60.2,41,68,35,61}
 		//  };
+		// 10elevator_greedy{23.5,66.5,57.4,18,57.4,37,57.4,57,57.4,77,77,69.5,38.5,66.5,38.5,73.5,31,70,23.5,73.5}
 
-		double trial[D] = {52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16};
+		double trial[D] = {23.5,66.5,57.4,18,57.4,37,57.4,57,57.4,77,77,69.5,38.5,66.5,38.5,73.5,31,70,23.5,73.5};
 
 		// randomly
 		// for (int i = 0; i < n_signages * 2; i += 2)
@@ -103,7 +104,7 @@ int main()
 			ind->xreal[i + 1] = trial[i + 1];
 		}
 
-		int num_threads = 30;
+		int num_threads = 1;
 		// while (1)
 		{
 			ind->obj[0] = 0;
@@ -227,6 +228,7 @@ int main()
 			trial_greedy[2 * j] = temp[j].greedy_sign_x;
 			trial_greedy[2 * j + 1] = temp[j].greedy_sign_y;
 		}
+
 		of << "Greedy" << endl;
 		vector<thread> ths;
 		for (int i = 0; i < num_threads; ++i)

@@ -11,7 +11,7 @@ using namespace std;
 IbeaSolver::IbeaSolver(int pop_size, int ind_size, int max_gens, int num_eva) : popsize{pop_size}, indsize{ind_size}, max_generations{max_gens}, eva_num{num_eva}, n_signages{ind_size / 2}
 {
 
-    outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/" + scene_name + "_" + to_string(n_signages) + "signs_" + to_string(popsize) + "popsize_30eva_300gens_0.02tick_res", ios::out);
+    outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/300people_10elevator_" + scene_name + "_" + to_string(n_signages) + "signs_" + to_string(popsize) + "popsize_bound_res", ios::out);
     // outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/demo.csv", ios::out);
     parent_pop = new Population(popsize, indsize);
     offspring_pop = new Population(popsize, indsize);
@@ -75,7 +75,7 @@ void IbeaSolver::initialize_population(Population *pop)
     }
     else if (scene_name == "scene3")
     {
-        double greedy[maxvar] = {57.4,37,38.5,73.5,23.5,66.5,57.4,77,98,62.5,23.5,73.5,68,17.5,12.5,57,31,70,3,87.5};
+        double greedy[maxvar] = {23.5,66.5,57.4,18,57.4,37,57.4,57,57.4,77,77,69.5,38.5,66.5,38.5,73.5,31,70,23.5,73.5};
         memcpy(pop->ind[0]->xreal, greedy, 2 * n_signages * sizeof(double));
         double SD[maxvar] = {52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16};
         memcpy(pop->ind[1]->xreal, SD, 2 * n_signages * sizeof(double));
@@ -105,7 +105,7 @@ void IbeaSolver::initialize_population(Population *pop)
 }
 
 #define F 0.5  // F���Ʋ�ֱ仯�ķŴ�[0,2]
-#define CR 0.7 // ���泣�� [0,1]
+#define CR 0.3 // ���泣�� [0,1]
 
 // test crossing variables code
 // int n_c = 0;
@@ -344,13 +344,12 @@ void zdt1(Individual *ind)
 // ����ģ��
 void IbeaSolver::simulation(Individual *ind_cur, IbeaSolver *_this)
 {
-    double w0 = 5;
     int n_signages = ind_cur->indsize;
     Simulator sim = Simulator(ind_cur->xreal, n_signages);
     sim.run_simulation();
     // ��Ҫ�������
     _this->mymutex.lock();
-    ind_cur->obj[0] += w0 * sim.avg_time;
+    ind_cur->obj[0] += sim.avg_time;
     ind_cur->obj[1] += sim.avg_max_pressure;
     _this->mymutex.unlock();
 }
