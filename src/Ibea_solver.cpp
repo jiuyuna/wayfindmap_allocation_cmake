@@ -11,7 +11,7 @@ using namespace std;
 IbeaSolver::IbeaSolver(int pop_size, int ind_size, int max_gens, int num_eva) : popsize{pop_size}, indsize{ind_size}, max_generations{max_gens}, eva_num{num_eva}, n_signages{ind_size / 2}
 {
 
-    outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/300people_10elevator_" + scene_name + "_" + to_string(n_signages) + "signs_" + to_string(popsize) + "popsize_bound_res", ios::out);
+    outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/100people_0highest_" + scene_name + "_" + to_string(n_signages) + "signs_" + to_string(popsize) + "popsize_bound_res", ios::out);
     // outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/demo.csv", ios::out);
     parent_pop = new Population(popsize, indsize);
     offspring_pop = new Population(popsize, indsize);
@@ -75,22 +75,22 @@ void IbeaSolver::initialize_population(Population *pop)
     }
     else if (scene_name == "scene3")
     {
-        double greedy[maxvar] = {23.5,66.5,57.4,18,57.4,37,57.4,57,57.4,77,77,69.5,38.5,66.5,38.5,73.5,31,70,23.5,73.5};
+        double greedy[maxvar] = {12.5,57,68,87.5,98,62.5,70,47.5,68,17.5,47,7.5,3,87.5};
         memcpy(pop->ind[0]->xreal, greedy, 2 * n_signages * sizeof(double));
-        double SD[maxvar] = {52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16};
-        memcpy(pop->ind[1]->xreal, SD, 2 * n_signages * sizeof(double));
-        double WO[maxvar] = {13, 62, 24, 72, 41, 70, 52, 7, 52, 62, 52, 67, 63, 18, 64, 47, 77, 64, 102, 62};
-        for (int i = 0; i < 2 * n_signages; i += 2)
-        {
-            int rnd = (int)randval(0, (int)available_points.size());
-            while (rnd == (int)available_points.size())
-                rnd = (int)randval(0, available_points.size());
-            WO[i] = available_points[rnd].X;
-            WO[i + 1] = available_points[rnd].Y;
-        }
-        memcpy(pop->ind[2]->xreal, WO, 2 * n_signages * sizeof(double));
+        // double SD[maxvar] = {52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16};
+        // memcpy(pop->ind[1]->xreal, SD, 2 * n_signages * sizeof(double));
+        // double WO[maxvar] = {13, 62, 24, 72, 41, 70, 52, 7, 52, 62, 52, 67, 63, 18, 64, 47, 77, 64, 102, 62};
+        // for (int i = 0; i < 2 * n_signages; i += 2)
+        // {
+        //     int rnd = (int)randval(0, (int)available_points.size());
+        //     while (rnd == (int)available_points.size())
+        //         rnd = (int)randval(0, available_points.size());
+        //     WO[i] = available_points[rnd].X;
+        //     WO[i + 1] = available_points[rnd].Y;
+        // }
+        // memcpy(pop->ind[2]->xreal, WO, 2 * n_signages * sizeof(double));
     }
-    for (int i = 3; i < popsize; ++i)
+    for (int i = 1; i < popsize; ++i)
     {
         Individual *ind_cur = pop->ind[i];
         for (int j = 0; j < ind_cur->indsize; j += 2)
@@ -105,7 +105,7 @@ void IbeaSolver::initialize_population(Population *pop)
 }
 
 #define F 0.5  // F���Ʋ�ֱ仯�ķŴ�[0,2]
-#define CR 0.3 // ���泣�� [0,1]
+#define CR 0.7 // ���泣�� [0,1]
 
 // test crossing variables code
 // int n_c = 0;
