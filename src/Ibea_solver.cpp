@@ -111,6 +111,17 @@ void IbeaSolver::initialize_population(Population *pop)
 // int n_c = 0;
 // int n_regenerate = 0;
 
+void regeneration(Individual *ind){
+    for (int j = 0; j < ind->indsize; j += 2)
+    {
+        int rnd = (int)randval(0, (int)available_points.size());
+        while (rnd == (int)available_points.size())
+            rnd = (int)randval(0, available_points.size());
+        ind->xreal[j] = available_points[rnd].X;
+        ind->xreal[j + 1] = available_points[rnd].Y;
+    }
+}
+
 void IbeaSolver::crossover_mutation()
 {
     // //DE
@@ -286,17 +297,25 @@ void IbeaSolver::crossover_mutation()
             {
                 // Խ�紦��
                 {
-                    // x
-                    if (offspring_pop->ind[i]->xreal[2 * j] < 1)
-                        offspring_pop->ind[i]->xreal[2 * j] = 1;
-                    if (offspring_pop->ind[i]->xreal[2 * j] > 39)
-                        offspring_pop->ind[i]->xreal[2 * j] = 39;
+                     // x
+                    // if (offspring_pop->ind[i]->xreal[2 * j] < 1)
+                    //     offspring_pop->ind[i]->xreal[2 * j] = 1;
+                    // if (offspring_pop->ind[i]->xreal[2 * j] > 39)
+                    //     offspring_pop->ind[i]->xreal[2 * j] = 39;
 
+                    // // y
+                    // if (offspring_pop->ind[i]->xreal[2 * j + 1] < 1)
+                    //     offspring_pop->ind[i]->xreal[2 * j + 1] = 1;
+                    // if (offspring_pop->ind[i]->xreal[2 * j + 1] > 39)
+                    //     offspring_pop->ind[i]->xreal[2 * j + 1] = 39;
+
+                    //regeneration
+                    //x
+                    if (offspring_pop->ind[i]->xreal[2 * j] < 1 || offspring_pop->ind[i]->xreal[2 * j] > 39)
+                        regeneration(offspring_pop->ind[i]);
                     // y
-                    if (offspring_pop->ind[i]->xreal[2 * j + 1] < 1)
-                        offspring_pop->ind[i]->xreal[2 * j + 1] = 1;
-                    if (offspring_pop->ind[i]->xreal[2 * j + 1] > 39)
-                        offspring_pop->ind[i]->xreal[2 * j + 1] = 39;
+                    if (offspring_pop->ind[i]->xreal[2 * j + 1] < 1 || offspring_pop->ind[i]->xreal[2 * j + 1] > 39)
+                        regeneration(offspring_pop->ind[i]);
                 }
             }
 

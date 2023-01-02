@@ -53,7 +53,7 @@ int main()
 	time.reset();
 	initialize();
 
-	string allocation_method = "ibea";
+	string allocation_method = "heatMap";
 
 	if (allocation_method == "ibea")
 	{
