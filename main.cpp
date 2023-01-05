@@ -93,7 +93,7 @@ int main()
 		// opt{}
 
 
-		double trial[D] = {12.5,57,68,87.5,98,62.5,70,47.5,68,17.5,47,7.5,3,87.5};
+		double trial[D] = {-1, -1, -1, -1, -1, -1, -1, -1};
 
 		// randomly
 		// for (int i = 0; i < n_signages * 2; i += 2)

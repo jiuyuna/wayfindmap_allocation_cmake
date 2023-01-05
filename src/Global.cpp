@@ -5,8 +5,8 @@
 using namespace std;
 
 //�������� ȫ�ֱ���
-string scene_name = "scene3"; // scene1, scene2, scene3
-int n_signages = 10;
+string scene_name = "scene1"; // scene1, scene2, scene3
+int n_signages = 4;
 int simulation_time = 12000;
 int stag_time = (1/tick) * 10; //���˿���ָʾ��ͣ��ʱ��
 int Width;
@@ -748,16 +748,16 @@ void initialize()
 
     //��ʼ����������Լ����˵�����ʱ��?1?7
     //scene1/2
-    //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_entrance_traffic.txt";
-    //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_pedenstrains_timetable.txt";
+    string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_entrance_traffic.txt";
+    string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_pedenstrains_timetable.txt";
 
     //10elevator
     //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_10s_elevator/" + scene_name + "_entrance_traffic.txt";
     //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_10s_elevator/" + scene_name + "_pedenstrains_timetable.txt";
     
     //7outer
-    string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_entrance_traffic.txt";
-    string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_pedenstrains_timetable.txt";
+    //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_entrance_traffic.txt";
+    //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_pedenstrains_timetable.txt";
     
     //17normal
     
