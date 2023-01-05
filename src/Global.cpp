@@ -5,8 +5,8 @@
 using namespace std;
 
 //�������� ȫ�ֱ���
-string scene_name = "scene1"; // scene1, scene2, scene3
-int n_signages = 4;
+string scene_name = "scene3"; // scene1, scene2, scene3
+int n_signages = 10;
 int simulation_time = 12000;
 int stag_time = (1/tick) * 10; //���˿���ָʾ��ͣ��ʱ��
 int Width;
@@ -573,7 +573,12 @@ void init_pedestrian(string traffic_path, string timetable_path)
         {
             int generate_people_pertime = 50; //ÿgenerate_people_pertime/50������һ������ 250
             int cur_sum_people = 0;
-            int need_sum_people = 100;//scene1/2:100,scene3:300
+            int need_sum_people{};//scene1/2:100,scene3:300
+            if(scene_name == "scene1" || scene_name == "scene2"){
+                need_sum_people = 100;
+            }else if(scene_name == "scene3"){
+                need_sum_people = 300;
+            }
             cout<<"cant find time table of pedestrains. generate here!"<<endl;
 
             ofstream ofile(timetable_path, ios::out);
@@ -606,17 +611,17 @@ void init_pedestrian(string traffic_path, string timetable_path)
                         //     exit_id = (int)randval(0 , 7);
                         // } while (exit_id == entrances[j].door_id || exit_id >= 7); 
                         
-                        // do
-                        // {
-                        //     //7souter
-                        //     exit_id = (int)randval(7 , 17);
-                        // } while (exit_id == entrances[j].door_id || exit_id >= 17);
-
                         do
                         {
-                            //normal
-                            exit_id = (int)randval(0, entrances.size());
-                        } while (exit_id == entrances[j].door_id || exit_id >= (int)entrances.size());
+                            //7souter
+                            exit_id = (int)randval(7 , 17);
+                        } while (exit_id == entrances[j].door_id || exit_id >= 17);
+
+                        // do
+                        // {
+                        //     //normal
+                        //     exit_id = (int)randval(0, entrances.size());
+                        // } while (exit_id == entrances[j].door_id || exit_id >= (int)entrances.size());
                         //exit(1);
                         cur_sum_people++;
                         ofile << i << ' ' << entrances[j].door_id << ' ' << exit_id << endl;
@@ -743,16 +748,16 @@ void initialize()
 
     //��ʼ����������Լ����˵�����ʱ��?1?7
     //scene1/2
-    string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_entrance_traffic.txt";
-    string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_pedenstrains_timetable.txt";
+    //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_entrance_traffic.txt";
+    //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/" + scene_name + "_pedenstrains_timetable.txt";
 
     //10elevator
     //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_10s_elevator/" + scene_name + "_entrance_traffic.txt";
     //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_10s_elevator/" + scene_name + "_pedenstrains_timetable.txt";
     
     //7outer
-    //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/" + scene_name + "_entrance_traffic.txt";
-    //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/" + scene_name + "_pedenstrains_timetable.txt";
+    string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_entrance_traffic.txt";
+    string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_pedenstrains_timetable.txt";
     
     //17normal
     
