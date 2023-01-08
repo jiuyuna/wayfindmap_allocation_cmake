@@ -11,7 +11,7 @@ using namespace std;
 IbeaSolver::IbeaSolver(int pop_size, int ind_size, int max_gens, int num_eva) : popsize{pop_size}, indsize{ind_size}, max_generations{max_gens}, eva_num{num_eva}, n_signages{ind_size / 2}
 {
 
-    outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/newrndwalk_300people_6highest_bound" + scene_name + "_" + to_string(n_signages) + "signs_" + to_string(popsize) + "popsize_res", ios::out);
+    outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/newrndwalk_300people_sametraffic_bound" + scene_name + "_" + to_string(n_signages) + "signs_" + to_string(popsize) + "popsize_res", ios::out);
     // outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/demo.csv", ios::out);
     parent_pop = new Population(popsize, indsize);
     offspring_pop = new Population(popsize, indsize);
@@ -75,7 +75,7 @@ void IbeaSolver::initialize_population(Population *pop)
     }
     else if (scene_name == "scene3")
     {
-        //10signs
+        //7outer
         double greedy[maxvar] = {12.5,57,68,87.5,98,62.5,70,47.5,68,17.5,47,7.5,3,87.5};
         for (int i = 2*7; i < 2 * n_signages; i += 2)
         {
@@ -88,7 +88,7 @@ void IbeaSolver::initialize_population(Population *pop)
         memcpy(pop->ind[0]->xreal, greedy, 2 * n_signages * sizeof(double));
         double SD[maxvar] = {51,10,65,74,35,71,14,72,51,61,91,65,53,39};
         memcpy(pop->ind[1]->xreal, SD, 2 * n_signages * sizeof(double));
-        double WO[maxvar] = {13, 62, 24, 72, 41, 70, 52, 7, 52, 62, 52, 67, 63, 18, 64, 47, 77, 64, 102, 62};
+        double WO[maxvar] = {12,87,13,62,52,7,63,18,64,47,82,70,63,87};
         memcpy(pop->ind[2]->xreal, WO, 2 * n_signages * sizeof(double));
     }
     for (int i = 3; i < popsize; ++i)

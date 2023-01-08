@@ -747,7 +747,7 @@ void initialize()
     cout << available_points.size() << endl;
 
     //��ʼ����������Լ����˵�����ʱ��?1?7
-    //scene1/2 samet=Traffic
+    //scene1/2 sameTraffic
     //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/entrance_traffic.txt";
     //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/pedenstrains_timetable.txt";
 
@@ -759,10 +759,14 @@ void initialize()
     //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_10s_elevator/" + scene_name + "_entrance_traffic.txt";
     //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_10s_elevator/" + scene_name + "_pedenstrains_timetable.txt";
     
-    //7outer
-    string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_entrance_traffic.txt";
-    string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_pedenstrains_timetable.txt";
+    //7outer sameTraffic
+    string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/sametraffic/" + scene_name + "_entrance_traffic.txt";
+    string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/sametraffic/" + scene_name + "_pedenstrains_timetable.txt";
     
+    //7outer differentTraffic
+    //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_entrance_traffic.txt";
+    //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_pedenstrains_timetable.txt";
+
     init_pedestrian(traffice_path, timetable_path);
 
     //����·��ͼ����ȡȫ������·����Ϣ

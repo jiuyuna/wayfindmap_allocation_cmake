@@ -29,7 +29,7 @@ public:
     double avg_time;
     double pressure;
     //��������ļ�(���߳�ʱ����عر�)
-    static const bool saveTracks = false;
+    static const bool saveTracks = true;
     static const bool saveIndicatorsPerSecond = false;
     static const bool saveTimeTableAndKeepSame = true;
     string outPressurePerSecond = {}; //
