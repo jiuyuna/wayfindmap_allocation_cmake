@@ -5,21 +5,21 @@ using namespace std;
 
 Simulator::Simulator(double trial[], int num_signs)
 {
-    // Ä£ÄâÖÐÐèÒª¼ÇÂ¼µÄ²ÎÊý
-    sum_people = all_agents.size(); // ½øÈë×ÜÈËÊý
-    getin = 0, getout = 0;          // ÓÃÓÚÍ³¼ÆtÊ±¼äÄÚ½øÈëµÄÈËÊýºÍÒÑ¾­³öÈ¥µÄÈËÊý
-    total_time = 0;                 // ÓÃÓÚÍ³¼ÆËùÓÃÐÐÈËËù»¨·ÑµÄÊ±¼ä
-    avg_max_pressure = 0;           // Æ½¾ùÐÐÈËËùÊÜµ½µÄ×î´óÑ¹Á¦
-    sum_pre = 0;                    // Ä³Ò»Ê±¿Ì£¬ÐÐÈËÊÜµ½µÄ×ÜÑ¹Á¦
+    // Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Â¼ï¿½Ä²ï¿½ï¿½ï¿½
+    sum_people = all_agents.size(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    getin = 0, getout = 0;          // ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½tÊ±ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    total_time = 0;                 // ï¿½ï¿½ï¿½ï¿½Í³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñµï¿½Ê±ï¿½ï¿½
+    avg_max_pressure = 0;           // Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½
+    sum_pre = 0;                    // Ä³Ò»Ê±ï¿½Ì£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½
     avg_time = 0;
     pressure = 0;
 
     n_entrances = entrances.size();
 
-    // Ä£ÄâÖÐÐèÒªÊ¹ÓÃµÄÊý¾Ý½á¹¹
+    // Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÊ¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ý½á¹¹
     n_signages = num_signs;
 
-    // ÉèÖÃsignagesÎ»ÖÃ
+    // ï¿½ï¿½ï¿½ï¿½signagesÎ»ï¿½ï¿½
     int j = 0;
     for (int i = 0; i < n_signages; ++i)
     {
@@ -38,9 +38,9 @@ Simulator::Simulator(double trial[], int num_signs)
         signages.push_back(signage);
     }
 
-    // ÐÐÈËÔËÐÐÊ±´´½¨
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 
-    // ¿ØÖÆÎÄ¼þÊäÈë
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
     if (saveTracks)
     {
         oFile1 = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/data1/demo.dat", ios::out | ios::trunc);
@@ -71,13 +71,13 @@ void Simulator::Patn_SignToEntrance()
         int s_x = signages[j].x;
         int s_y = signages[j].y;
 
-        // ÆðÊ¼Î»ÖÃ²»Ó¦¸ÃÊÇÕÏ°­Îï
+        // ï¿½ï¿½Ê¼Î»ï¿½Ã²ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½
         if (myMap[s_x][s_y] == 1)
         {
             surroundings_feasibility_point(s_x, s_y, s_x, s_y);
         }
 
-        // ¸ù¾Ý³ö¿ÚÎ»ÖÃÑ°ÕÒÂ·¾¶²¢±£´æ
+        // ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½Î»ï¿½ï¿½Ñ°ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         for (int i = 0; i < n_entrances; ++i)
         {
             int e_x = entrances[i].en_x;
@@ -86,7 +86,7 @@ void Simulator::Patn_SignToEntrance()
             {
                 surroundings_feasibility_point(e_x, e_y, e_x, e_y);
             }
-            // ÓÅ»¯µ±Ö¸Ê¾ÅÆºÍ³ö¿ÚÎ»ÖÃÖØºÏ£¬Ö±½Ó¸³Öµ
+            // ï¿½Å»ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ÆºÍ³ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ØºÏ£ï¿½Ö±ï¿½Ó¸ï¿½Öµ
             if (s_x == e_x && s_y == e_y)
             {
                 vector<double> t;
@@ -115,7 +115,7 @@ void Simulator::Patn_SignToEntrance()
         }
     }
 }
-/// ¸÷¸ö×´Ì¬·À¿¨ËÀµÄÐÐÎª
+/// ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª
 void Simulator::Stagnate_Avoid()
 {
     for (size_t i = 0; i < agents.size(); ++i)
@@ -127,20 +127,20 @@ void Simulator::Stagnate_Avoid()
             double dist = sqrt((cur_agent->x - cur_agent->gx) * (cur_agent->x - cur_agent->gx) + (cur_agent->y - cur_agent->gy) * (cur_agent->y - cur_agent->gy));
             if (dist < 0.5)
             {
-                // ÀûÓÃµ±Ç°ÆðµãºÍÔÝÊ±Ä¿µÄµØÉú³ÉÒ»Ìõ¿ÉÐÐµÄÂ·¾¶¡£
+                // ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ä¿ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Â·ï¿½ï¿½ï¿½ï¿½
                 cur_agent->path.clear();
                 cur_agent->path.shrink_to_fit();
                 cur_agent->n_setp = 0;
                 FindPath_Agent_staticFloyd(cur_agent, cur_agent->temp_gx, cur_agent->temp_gy);
-                // Ö»ÎªÅÅ³ýBUG
+                // Ö»Îªï¿½Å³ï¿½BUG
                 if (cur_agent->path.size() == 0)
                 {
-                    cout << "´íÎó£¬µ±Ç°Ä¿µÄµØ:" << cur_agent->gx << ' ' << cur_agent->gy << endl;
+                    cout << "ï¿½ï¿½ï¿½ó£¬µï¿½Ç°Ä¿ï¿½Äµï¿½:" << cur_agent->gx << ' ' << cur_agent->gy << endl;
                     continue;
                 }
                 else if (cur_agent->path[0].size() == 0)
                 {
-                    cout << "´íÎó£¬µ±Ç°Ä¿µÄµØ:" << cur_agent->gx << ' ' << cur_agent->gy << endl;
+                    cout << "ï¿½ï¿½ï¿½ó£¬µï¿½Ç°Ä¿ï¿½Äµï¿½:" << cur_agent->gx << ' ' << cur_agent->gy << endl;
                     continue;
                 }
                 else
@@ -157,17 +157,17 @@ void Simulator::Stagnate_Avoid()
 
         if (cur_agent->numOfTry > 20)
         {
-            // ²»ÔÙ¼ÇÂ¼¸ÃÐÐÈË
-            sum_people--;
-            for (vector<AGENT>::iterator iter = agents.begin(); iter != agents.end(); iter++)
-            { // ´ÓvectorÖÐÉ¾³ýÖ¸¶¨µÄÄ³Ò»¸öÔªËØ
-                if (iter->id == cur_agent->id)
-                {
-                    // cout<< cur_agent->id<<endl;
-                    agents.erase(iter);
-                    break;
-                }
-            }
+            // // ï¿½ï¿½ï¿½Ù¼ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            // sum_people--;
+            // for (vector<AGENT>::iterator iter = agents.begin(); iter != agents.end(); iter++)
+            // { // ï¿½ï¿½vectorï¿½ï¿½É¾ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ä³Ò»ï¿½ï¿½Ôªï¿½ï¿½
+            //     if (iter->id == cur_agent->id)
+            //     {
+            //         // cout<< cur_agent->id<<endl;
+            //         agents.erase(iter);
+            //         break;
+            //     }
+            // }
         }
     }
 }
@@ -179,12 +179,12 @@ int Simulator::isArrival(AGENT *cur_agent)
     double desx = cur_agent->gx;
     double desy = cur_agent->gy;
 
-    // ÏÈ¿´ÊÇ·ñµ½´ï×îÖÕÄ¿µÄµØ
+    // ï¿½È¿ï¿½ï¿½Ç·ñµ½´ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Äµï¿½
     if (sqrt((curx - cur_agent->lgx) * (curx - cur_agent->lgx) + (cury - cur_agent->lgy) * (cury - cur_agent->lgy)) <= 1.5)
     {
         return 2;
     }
-    // µ±ÐÐÈË¿¿½üÄ¿µÄµØÒ»¶¨·¶Î§ÄÚÎªµ½´ï
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½Ä¿ï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
     if (sqrt((curx - desx) * (curx - desx) + (cury - desy) * (cury - desy)) <= 0.5)
     {
         return 1;
@@ -199,15 +199,24 @@ int Simulator::isArrival(AGENT *cur_agent)
 void Simulator::Tournament_Selection(AGENT *cur_agent)
 {
     int candidates = 10;
-    // Ñ¡Ôñ³ö10¸öµã½øÐÐ¾º±êÈüÑ¡Ôñ£¬Ñ¡Ôñ×îÐ¡µÄ
+    int maximu_viewing_distance = 30;
+    // Ñ¡ï¿½ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½
     double min = 10000;
-    int select_x{}, select_y{}; // ±£´æÑ¡Ôñ³öµÄ×ø±ê
+    int select_x{}, select_y{}; // ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     int rnd, temp_x, temp_y;
+   
     for (int i = 0; i < candidates; i++)
     {
-        rnd = (int)randval(0, available_points.size());
-        while (rnd < 0 || rnd >= (int)available_points.size())
-            rnd = (int)randval(0, available_points.size()); // ·ÀÖ¹ÒâÍâà»
+        bool flag = false;
+        do{
+            rnd = (int)randval(0, available_points.size());
+            double dist = sqrt((available_points[rnd].X - cur_agent->x)*(available_points[rnd].X - cur_agent->x)+(available_points[rnd].Y - cur_agent->y)*(available_points[rnd].Y - cur_agent->y));
+            if(dist<=maximu_viewing_distance){
+                flag = true;
+                //cout<<fabs(available_points[rnd].X - cur_agent->x)<<' '<<fabs(available_points[rnd].Y - cur_agent->y)<<endl;
+             }
+             
+        }while (rnd < 0 || rnd >= (int)available_points.size() || !flag);
         temp_x = available_points[rnd].X;
         temp_y = available_points[rnd].Y;
         if (cur_agent->map[temp_y][temp_x] < min)
@@ -219,10 +228,11 @@ void Simulator::Tournament_Selection(AGENT *cur_agent)
     }
     cur_agent->temp_gx = select_x;
     cur_agent->temp_gy = select_y;
+    
 
-    // ¸üÐÂmapÐÅÏ¢
+    // ï¿½ï¿½ï¿½ï¿½mapï¿½ï¿½Ï¢
     int left_up_x, left_up_y; // right_down_x, right_down_y;
-    int n_surrounding = 20;   // ¶ÔÓÚÑ¡Ôñ³öµÄµãÒÔ¼°¸½½ü¸øÓèÒ»¸öÈ¨ÖØ£¬ÏÂ´Î¿¼ÂÇÊ±È¨ÖØ´óÑ¡Ôñ¸ÅÂÊÐ¡¡£20*20£¬ÄÚµ½ÍâÈ¨ÖØµÝ¼õ¡£
+    int n_surrounding = 20;   // ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½È¨ï¿½Ø£ï¿½ï¿½Â´Î¿ï¿½ï¿½ï¿½Ê±È¨ï¿½Ø´ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½20*20ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½È¨ï¿½ØµÝ¼ï¿½ï¿½ï¿½
     double weight;
     for (int i = 0; i <= n_surrounding; ++i)
     {
@@ -232,7 +242,7 @@ void Simulator::Tournament_Selection(AGENT *cur_agent)
 
         if (i == 0)
             cur_agent->map[select_y][select_x] += weight;
-        // ÉÏ
+        // ï¿½ï¿½
         int x = left_up_x;
         int y = left_up_y;
         for (int k = 0; k < i * 2; k++)
@@ -241,7 +251,7 @@ void Simulator::Tournament_Selection(AGENT *cur_agent)
                 continue;
             cur_agent->map[y][x + k] += weight;
         }
-        // ÓÒ
+        // ï¿½ï¿½
         x = left_up_x + i * 2;
         y = left_up_y;
         for (int k = 0; k < i * 2; k++)
@@ -250,7 +260,7 @@ void Simulator::Tournament_Selection(AGENT *cur_agent)
                 continue;
             cur_agent->map[y - k][x] += weight;
         }
-        // ÏÂ
+        // ï¿½ï¿½
         x = left_up_x + i * 2;
         y = left_up_y - i * 2;
         for (int k = 0; k < i * 2; k++)
@@ -259,7 +269,7 @@ void Simulator::Tournament_Selection(AGENT *cur_agent)
                 continue;
             cur_agent->map[y][x - k] += weight;
         }
-        // ×ó
+        // ï¿½ï¿½
         x = left_up_x;
         y = left_up_y - i * 2;
         for (int k = 0; k < i * 2; k++)
@@ -271,36 +281,37 @@ void Simulator::Tournament_Selection(AGENT *cur_agent)
     }
 }
 
-// ³¡¾°ÄÚËæ»úÐÐ×ß
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Simulator::randomWalk()
 {
     for (size_t i = 0; i < agents.size(); ++i)
     {
         AGENT *cur_agent = &agents[i];
-
+     
         if (!cur_agent->isFind && !cur_agent->isKnown)
         {
+            
             if (cur_agent->n_setp == cur_agent->path.size() - 1 || cur_agent->path.size() == 0)
             {
 
-                // Ê¹ÓÃ½õ±êÈüËã·¨Ëæ»úÉú³ÉÏÂÒ»¸öÔÝÊ±Ä¿µÄµØ
+                // Ê¹ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê±Ä¿ï¿½Äµï¿½
                 Tournament_Selection(cur_agent);
-
-                // ÀûÓÃµ±Ç°ÆðµãºÍÔÝÊ±Ä¿µÄµØÉú³ÉÒ»Ìõ¿ÉÐÐµÄÂ·¾¶¡££¨ÏÈÊ¹ÓÃAstarÕÒ£©
+               
+                // ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ä¿ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Astarï¿½Ò£ï¿½
                 cur_agent->path.clear();
                 cur_agent->path.shrink_to_fit();
                 cur_agent->n_setp = 0;
 
                 FindPath_Agent_staticFloyd(cur_agent, cur_agent->temp_gx, cur_agent->temp_gy);
-                // Ö»ÎªÅÅ³ýBUG
+                // Ö»Îªï¿½Å³ï¿½BUG
                 if (cur_agent->path.size() == 0)
                 {
-                    cout << "´íÎó£¬µ±Ç°Ä¿µÄµØ:" << cur_agent->gx << ' ' << cur_agent->gy << endl;
+                    cout << "ï¿½ï¿½ï¿½ó£¬µï¿½Ç°Ä¿ï¿½Äµï¿½:" << cur_agent->gx << ' ' << cur_agent->gy << endl;
                     continue;
                 }
                 else if (cur_agent->path[0].size() == 0)
                 {
-                    cout << "´íÎó£¬µ±Ç°Ä¿µÄµØ:" << cur_agent->gx << ' ' << cur_agent->gy << endl;
+                    cout << "ï¿½ï¿½ï¿½ó£¬µï¿½Ç°Ä¿ï¿½Äµï¿½:" << cur_agent->gx << ' ' << cur_agent->gy << endl;
                     continue;
                 }
                 else
@@ -313,24 +324,24 @@ void Simulator::randomWalk()
     }
 }
 
-// ¶¨ÒåÁËÐÐÈËÑ°ÕÒÖ¸Ê¾ÅÆµÄÐÐÎª£¬ÒÑ¾­¿´µ½Ö®ºóµÄÐÐÎª
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½Ö¸Ê¾ï¿½Æµï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Îª
 void Simulator::SearchSign()
 {
-    // ÅÐ¶Ïµ±Ç°ÐÐÈËÊÇ·ñ¿´¼û±êÊ¶
+    // ï¿½Ð¶Ïµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ñ¿´¼ï¿½ï¿½ï¿½Ê¶
     for (size_t i = 0; i < agents.size(); ++i)
     {
         AGENT *cur_agent = &agents[i];
         if (!cur_agent->isFind && !cur_agent->isKnown)
         {
-            // ½×¶Î1£¬ÐÐÈË¿´µ½Ö¸Ê¾ÅÆ£¬µ«¿´²»ÇåÄÚÈÝ£¬ÓÚÊÇÏòÖ¸Ê¾ÅÆ×ßÈ¥
-            // ÕÒÒ»¸ö×î½üµÄÖ¸Ê¾ÅÆ
+            // ï¿½×¶ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½ï¿½ï¿½È¥
+            // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½
             double cur_min_dist = 100000.0;
             int pos = -1;
             for (int j = 0; j < n_signages; ++j)
             {
-                // ÐÐÈËÊÇ·ñÔÚ±êÊ¶µÄVCAÖÐ
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ú±ï¿½Ê¶ï¿½ï¿½VCAï¿½ï¿½
                 double dist = sqrt((cur_agent->x - signages[j].x) * (cur_agent->x - signages[j].x) + (cur_agent->y - signages[j].y) * (cur_agent->y - signages[j].y));
-                // ±êÊ¶ÊÇ·ñÔÚÐÐÈËµÄÊÓÒ°·¶Î§ÄÚ
+                // ï¿½ï¿½Ê¶ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î§ï¿½ï¿½
                 double Wp_x = cur_agent->vx;
                 double Wp_y = cur_agent->vy;
                 double Gp_x = signages[j].x - cur_agent->x;
@@ -339,12 +350,12 @@ void Simulator::SearchSign()
                 double Wp_mol = sqrt(Wp_x * Wp_x + Wp_y * Wp_y);
                 double Gp_mol = sqrt(Gp_x * Gp_x + Gp_y * Gp_y);
                 double theta;
-                if (Wp_mol * Gp_mol == 0) // ·ÀÖ¹³ý0
+                if (Wp_mol * Gp_mol == 0) // ï¿½ï¿½Ö¹ï¿½ï¿½0
                     theta = 0;
                 else
                     theta = acos(WpGp / (Wp_mol * Gp_mol));
 
-                // ÓÃÓÚÅÐ¶ÏÐÐÈËºÍÖ¸Ê¾ÅÆ¼äÊÇ·ñÓÐÕÏ°­
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ëºï¿½Ö¸Ê¾ï¿½Æ¼ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
                 if (dist < cur_min_dist && ((dist <= signages[j].vca_R && theta <= (cur_agent->FOV / 2)) || dist <= signages[j].vca_r) && !isObstacle(cur_agent->x, cur_agent->y, signages[j].x, signages[j].y))
                 {
                     cur_min_dist = dist;
@@ -353,7 +364,7 @@ void Simulator::SearchSign()
             }
             if (pos != -1)
             {
-                cur_agent->sign_id = signages[pos].sign_id; // ¿´µ½µÄÖ¸Ê¾ÅÆµÄid
+                cur_agent->sign_id = signages[pos].sign_id; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½Æµï¿½id
                 cur_agent->temp_gx = cur_agent->gx = signages[pos].x;
                 cur_agent->temp_gy = cur_agent->gy = signages[pos].y;
                 cur_agent->isFind = true;
@@ -364,7 +375,7 @@ void Simulator::SearchSign()
         }
         else if (cur_agent->isFind && !cur_agent->isKnown)
         {
-            // ÏòÖ¸Ê¾ÅÆ×ßÈ¥¹ý³ÌÖÐ£¬Â·±ê¾Í½üÔ­Ôò
+            // ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½Â·ï¿½ï¿½Í½ï¿½Ô­ï¿½ï¿½
             if (cur_agent->loading == 0)
             {
                 for (int j = 0; j < n_signages; ++j)
@@ -381,7 +392,7 @@ void Simulator::SearchSign()
                     double Wp_mol = sqrt(Wp_x * Wp_x + Wp_y * Wp_y);
                     double Gp_mol = sqrt(Gp_x * Gp_x + Gp_y * Gp_y);
                     double theta;
-                    if (Wp_mol * Gp_mol == 0) // ·ÀÖ¹³ý0
+                    if (Wp_mol * Gp_mol == 0) // ï¿½ï¿½Ö¹ï¿½ï¿½0
                         theta = 0;
                     else
                         theta = acos(WpGp / (Wp_mol * Gp_mol));
@@ -389,7 +400,7 @@ void Simulator::SearchSign()
                     {
                         // cout << cur_agent->id << "from " << cur_agent->sign_id << "to " << signages[j].sign_id << endl;
                         //  cout<<signages[j].sign_id<<' '<<dist<<" - "<<cur_agent->sign_id<<' '<<cur_dist<<endl;
-                        cur_agent->sign_id = signages[j].sign_id; // ¿´µ½µÄÖ¸Ê¾ÅÆµÄid
+                        cur_agent->sign_id = signages[j].sign_id; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½Æµï¿½id
                         cur_agent->temp_gx = cur_agent->gx = signages[j].x;
                         cur_agent->temp_gy = cur_agent->gy = signages[j].y;
                         cur_agent->path.clear();
@@ -399,30 +410,30 @@ void Simulator::SearchSign()
                 }
             }
 
-            // ½×¶Î2£¬ÐÐÈË¸ù¾Ý»ñÈ¡Ö¸Ê¾ÅÆµÄÐÅÏ¢¡£
-            // ÐÐÈË¿´¼ûÖ¸Ê¾ÅÆºóÓ¦¸ÃÖ¸¶¨signage_id
+            // ï¿½×¶ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½Ë¸ï¿½ï¿½Ý»ï¿½È¡Ö¸Ê¾ï¿½Æµï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
+            // ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½Æºï¿½Ó¦ï¿½ï¿½Ö¸ï¿½ï¿½signage_id
             for (int j = 0; j < n_signages; ++j)
             {
                 if (signages[j].sign_id != cur_agent->sign_id)
                     continue;
-                // ÐÐÈËÊÇ·ñÔÚ±êÊ¶µÄVCAÖÐ
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ú±ï¿½Ê¶ï¿½ï¿½VCAï¿½ï¿½
                 double dist = sqrt((cur_agent->x - signages[j].x) * (cur_agent->x - signages[j].x) + (cur_agent->y - signages[j].y) * (cur_agent->y - signages[j].y));
-                // ±êÊ¶ÊÇ·ñÔÚÐÐÈËµÄÇåÎú¼û·¶Î§ÄÚ
+                // ï¿½ï¿½Ê¶ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½
                 if (dist <= signages[j].vca_r && !isObstacle(cur_agent->x, cur_agent->y, cur_agent->gx, cur_agent->gy)) // && theta <= cur_agent->FOV/2
                 {
-                    // ¿´µ½Ö®ºó£¬¶ÁÈ¡ÐÅÏ¢¡£
+                    // ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ó£¬¶ï¿½È¡ï¿½ï¿½Ï¢ï¿½ï¿½
                     if (cur_agent->loading < stag_time)
                     {
                         cur_agent->loading++;
                         break;
                     }
-                    // È»ºó³¯Ïò¹æ»®µÄÂ·¾¶µÄµÚÒ»¸ö½Úµã×ßÈ¥
+                    // È»ï¿½ï¿½ï¿½ï¿½æ»®ï¿½ï¿½Â·ï¿½ï¿½ï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½È¥
                     cur_agent->path.clear();
                     cur_agent->path.shrink_to_fit();
                     cur_agent->n_setp = 0;
                     cur_agent->n_setp_sign = 0;
                     if (signages[cur_agent->sign_id].path[cur_agent->exit_id].size() == 0)
-                    { // ·ÀÖ¹Ô½½ç
+                    { // ï¿½ï¿½Ö¹Ô½ï¿½ï¿½
                         cur_agent->gx = cur_agent->lgx;
                         cur_agent->gy = cur_agent->lgy;
                     }
@@ -432,9 +443,9 @@ void Simulator::SearchSign()
                     cur_agent->temp_gx = entrances[cur_agent->exit_id].en_x;
                     cur_agent->temp_gy = entrances[cur_agent->exit_id].en_y;
 
-                    cur_agent->isKnown = true; // ±íÊ¾ÒÑ¾­¿´¼û,ÇÒ¶ÁÈ¡ÍêÐÅÏ¢¡£
+                    cur_agent->isKnown = true; // ï¿½ï¿½Ê¾ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½Ò¶ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 
-                    ////ÐèÖØÐÂÉèÖÃËÙ¶È·½Ïò
+                    ////ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È·ï¿½ï¿½ï¿½
                     // double d0 = sqrt((cur_agent->gx - cur_agent->x) * (cur_agent->gx - cur_agent->x) + (cur_agent->gy - cur_agent->y) * (cur_agent->gy - cur_agent->y));
                     // cur_agent->vx = v0 * (cur_agent->gx - cur_agent->x) / d0;
                     // cur_agent->vy = v0 * (cur_agent->gy - cur_agent->y) / d0;
@@ -444,11 +455,11 @@ void Simulator::SearchSign()
     }
 }
 
-// ¼ÆËã²»Í¬agentÖ®¼äµÄÏà»¥×÷ÓÃ
+// ï¿½ï¿½ï¿½ã²»Í¬agentÖ®ï¿½ï¿½ï¿½ï¿½à»¥ï¿½ï¿½ï¿½ï¿½
 void Simulator::compute_agent_force(AGENT *cur_agent, AGENT *other_agent, double *total_fx, double *total_fy)
 {
-    // ¼ÆËãÇ°°ë²¿·Ö
-    double d = sqrt((cur_agent->x - other_agent->x) * (cur_agent->x - other_agent->x) + (cur_agent->y - other_agent->y) * (cur_agent->y - other_agent->y)); // Á½¸öagant¼äµÄ¾àÀë
+    // ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ë²¿ï¿½ï¿½
+    double d = sqrt((cur_agent->x - other_agent->x) * (cur_agent->x - other_agent->x) + (cur_agent->y - other_agent->y) * (cur_agent->y - other_agent->y)); // ï¿½ï¿½ï¿½ï¿½agantï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
     if (d == 0)
     {
         printf("here d == 0 error but fixed...");
@@ -462,7 +473,7 @@ void Simulator::compute_agent_force(AGENT *cur_agent, AGENT *other_agent, double
     double fnijx = (fexp + fkg) * nijx;
     double fnijy = (fexp + fkg) * nijy;
 
-    // ¼ÆËãºó°ë²¿·Ö
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ë²¿ï¿½ï¿½
     double fkgx = 0;
     double fkgy = 0;
     if (delta_d > 0)
@@ -479,11 +490,11 @@ void Simulator::compute_agent_force(AGENT *cur_agent, AGENT *other_agent, double
     *total_fy += fnijy + fkgy;
 }
 
-// ¼ÆËãagentµ½Ç½Ìå¡¢ÕÏ°­ÎïµÄ¾àÀë
+// ï¿½ï¿½ï¿½ï¿½agentï¿½ï¿½Ç½ï¿½å¡¢ï¿½Ï°ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
 double Simulator::Point_to_line_distance(double x0, double y0, double sx, double sy, double ex, double ey, double d, double *crx, double *cry)
 {
-    // t0ÊÇ¸öÏµÊý£¬±íÊ¾agent´¹Ö±µ½Ö±ÏßµÄµãÓësµãµÄ¾àÀë/ÕÏ°­ÎïÏßµÄ³¤¶È¡£µ±0<t0<1,È¡agent´¹Ö±µ½ÕÏ°­µÄ¾àÀë
-    // µ±t0>1,È¡agentµ½eµã¾àÀë£¬µ±t0<0,È¡agentµ½sµã¾àÀë (sÎªÕÏ°­ÎïÆðÊ¼µã£¬eÎªÖÕµã)
+    // t0ï¿½Ç¸ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾agentï¿½ï¿½Ö±ï¿½ï¿½Ö±ï¿½ßµÄµï¿½ï¿½ï¿½sï¿½ï¿½Ä¾ï¿½ï¿½ï¿½/ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ßµÄ³ï¿½ï¿½È¡ï¿½ï¿½ï¿½0<t0<1,È¡agentï¿½ï¿½Ö±ï¿½ï¿½ï¿½Ï°ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
+    // ï¿½ï¿½t0>1,È¡agentï¿½ï¿½eï¿½ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½t0<0,È¡agentï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ (sÎªï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ã£¬eÎªï¿½Õµï¿½)
     double t0 = ((ex - sx) * (x0 - sx) + (ey - sy) * (y0 - sy)) / (d * d);
     if (t0 < 0)
     {
@@ -495,12 +506,12 @@ double Simulator::Point_to_line_distance(double x0, double y0, double sx, double
     }
     else
     {
-        // ¼ÆËã´¹Ö±ÏòÁ¿µÄÄ£
+        // ï¿½ï¿½ï¿½ã´¹Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£
         d = sqrt(
             (x0 - (sx + t0 * (ex - sx))) * (x0 - (sx + t0 * (ex - sx))) +
             (y0 - (sy + t0 * (ey - sy))) * (y0 - (sy + t0 * (ey - sy))));
     }
-    // ´¹Ö±½»²æµã×ø±ê
+    // ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     *crx = sx + t0 * (ex - sx);
     *cry = sy + t0 * (ey - sy);
 
@@ -509,7 +520,7 @@ double Simulator::Point_to_line_distance(double x0, double y0, double sx, double
 
 void Simulator::walkToDes()
 {
-    // Èç¹ûÐÐÈË¿´µ½Ö¸Ê¾ÅÆ£¬Ôò³¯¹æ»®µÄÂ·¾¶×ßÈ¥£¬×îÖÕµ½´ïÄ¿µÄµØ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½Æ£ï¿½ï¿½ò³¯¹æ»®ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½Ä¿ï¿½Äµï¿½
     for (size_t i = 0; i < agents.size(); ++i)
     {
         AGENT *cur_agent = &agents[i];
@@ -517,7 +528,7 @@ void Simulator::walkToDes()
         {
             if (cur_agent->n_setp_sign < signages[cur_agent->sign_id].path[cur_agent->exit_id].size())
             {
-                // ÏÈÅÐ¶ÏÊÇ·ñ×ßµ½ÁËÔ¤¶¨µÄ½Úµã
+                // ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ßµï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½Ä½Úµï¿½
                 double tmp_gx = signages[cur_agent->sign_id].path[cur_agent->exit_id][cur_agent->n_setp_sign][0];
                 double tmp_gy = signages[cur_agent->sign_id].path[cur_agent->exit_id][cur_agent->n_setp_sign][1];
                 double dist = sqrt((cur_agent->x - tmp_gx) * (cur_agent->x - tmp_gx) + (cur_agent->y - tmp_gy) * (cur_agent->y - tmp_gy));
@@ -527,7 +538,7 @@ void Simulator::walkToDes()
                     {
                         cur_agent->gx = cur_agent->lgx;
                         cur_agent->gy = cur_agent->lgy;
-                        continue; // µ½Ä¿µÄµØÁË
+                        continue; // ï¿½ï¿½Ä¿ï¿½Äµï¿½ï¿½ï¿½
                     }
 
                     cur_agent->gx = signages[cur_agent->sign_id].path[cur_agent->exit_id][cur_agent->n_setp_sign + 1][0];
@@ -552,7 +563,7 @@ void Simulator::SearchExits()
         if (!cur_agent->isKnown)
         {
             // discover destination
-            // ³ö¿ÚÊÇ·ñÔÚÐÐÈËµÄÊÓÒ°·¶Î§ÄÚ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î§ï¿½ï¿½
             double Wp_x = cur_agent->vx;
             double Wp_y = cur_agent->vy;
             double Gp_x = cur_agent->lgx - cur_agent->x;
@@ -561,11 +572,11 @@ void Simulator::SearchExits()
             double Wp_mol = sqrt(Wp_x * Wp_x + Wp_y * Wp_y);
             double Gp_mol = sqrt(Gp_x * Gp_x + Gp_y * Gp_y);
             double theta;
-            if (Wp_mol * Gp_mol == 0) // ·ÀÖ¹³ý0
+            if (Wp_mol * Gp_mol == 0) // ï¿½ï¿½Ö¹ï¿½ï¿½0
                 theta = 0;
             else
                 theta = acos(WpGp / (Wp_mol * Gp_mol));
-            // ¾àÀë¡¢ÊÓÒ°¡¢ÎÞÕÏ°­×èµ²
+            // ï¿½ï¿½ï¿½ë¡¢ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½èµ²
             if ((sqrt((cur_agent->x - cur_agent->lgx) * (cur_agent->x - cur_agent->lgx) + (cur_agent->y - cur_agent->lgy) * (cur_agent->y - cur_agent->lgy)) <= 15) && theta <= (cur_agent->FOV / 2) && !isObstacle(cur_agent->x, cur_agent->y, cur_agent->lgx, cur_agent->lgy))
             {
                 cur_agent->path.clear();
@@ -581,7 +592,7 @@ void Simulator::SearchExits()
         {
             getout++;
             for (vector<AGENT>::iterator iter = agents.begin(); iter != agents.end(); iter++)
-            { // ´ÓvectorÖÐÉ¾³ýÖ¸¶¨µÄÄ³Ò»¸öÔªËØ
+            { // ï¿½ï¿½vectorï¿½ï¿½É¾ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ä³Ò»ï¿½ï¿½Ôªï¿½ï¿½
                 if (iter->id == cur_agent->id)
                 {
                     avg_max_pressure += agents[i].max_pressure;
@@ -592,13 +603,13 @@ void Simulator::SearchExits()
             }
         }
 
-        // µ½´ïgx gy¸½½ü£¬¸üÐÂpath
+        // ï¿½ï¿½ï¿½ï¿½gx gyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½path
         if (isArrival(cur_agent) == 1)
         {
-            // °´ÕÕÂ·¾¶½ÚµãÐÐ×ß
+            // ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½
             if (cur_agent->n_setp < cur_agent->path.size())
             {
-                // ÏÈÅÐ¶ÏÊÇ·ñ×ßµ½ÁËÔ¤¶¨µÄ½Úµã
+                // ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ßµï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½Ä½Úµï¿½
                 double tmp_gx = cur_agent->path[cur_agent->n_setp][0];
                 double tmp_gy = cur_agent->path[cur_agent->n_setp][1];
                 double dist = sqrt((cur_agent->x - tmp_gx) * (cur_agent->x - tmp_gx) + (cur_agent->y - tmp_gy) * (cur_agent->y - tmp_gy));
@@ -608,10 +619,10 @@ void Simulator::SearchExits()
                     {
                         cur_agent->gx = cur_agent->temp_gx;
                         cur_agent->gy = cur_agent->temp_gy;
-                        continue; // µ½Ä¿µÄµØÁË
+                        continue; // ï¿½ï¿½Ä¿ï¿½Äµï¿½ï¿½ï¿½
                     }
                     if (cur_agent->path[cur_agent->n_setp + 1].size() == 0)
-                        continue; // ·ÀÖ¹ÒâÍâ
+                        continue; // ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½
                     cur_agent->gx = cur_agent->path[cur_agent->n_setp + 1][0];
                     cur_agent->gy = cur_agent->path[cur_agent->n_setp + 1][1];
                     cur_agent->n_setp++;
@@ -626,13 +637,13 @@ void Simulator::SFM()
     for (size_t i = 0; i < agents.size(); ++i)
     {
         AGENT *cur_agent = &agents[i];
-        /*¼ÆËãÎÞ¸ÉÈÅÏÂagentµÄÐÐÎª*/
+        /*ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½agentï¿½ï¿½ï¿½ï¿½Îª*/
 
-        // ¼ÇÂ¼¸üÐÂÇ°Î»ÖÃ
+        // ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ç°Î»ï¿½ï¿½
         cur_agent->last_x = cur_agent->x;
         cur_agent->last_y = cur_agent->y;
 
-        // ¼ÆËãÔ¤ÆÚµÄ·½ÏòÏòÁ¿dx¡¢dy(µ¥Î»»¯)
+        // ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ÚµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½dxï¿½ï¿½dy(ï¿½ï¿½Î»ï¿½ï¿½)
         double x0 = cur_agent->x;
         double y0 = cur_agent->y;
 
@@ -641,12 +652,12 @@ void Simulator::SFM()
         double dx = v0 * (cur_agent->gx - x0) / d0;
         double dy = v0 * (cur_agent->gy - y0) / d0;
 
-        // ¼ÆËã¼ÓËÙ¶ÈÏòÁ¿(Êµ¼ÊµÄËÙ¶ÈÏòÁ¿ºÍÔ¤ÆÚµÄËÙ¶ÈÏòÁ¿Ö®²î ³ýÓÚ Ô¤¼ÆµÄ¼ÓËÙÊ±¼ätao = ¼ÓËÙ¶ÈÏòÁ¿)
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½(Êµï¿½Êµï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½Úµï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ô¤ï¿½ÆµÄ¼ï¿½ï¿½ï¿½Ê±ï¿½ï¿½tao = ï¿½ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½)
         double dax = (dx - cur_agent->vx) / tao;
         double day = (dy - cur_agent->vy) / tao;
-        // ¼ÓËÙ¶ÈÎª0£¬ÐÐÈË±£³ÖÔÈËÙÔË¶¯
+        // ï¿½ï¿½ï¿½Ù¶ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½Ë±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¶ï¿½
 
-        /*¼ÆËãagentsµÄÏà»¥×÷ÓÃ*/
+        /*ï¿½ï¿½ï¿½ï¿½agentsï¿½ï¿½ï¿½à»¥ï¿½ï¿½ï¿½ï¿½*/
         double total_fx = 0;
         double total_fy = 0;
         for (size_t j = 0; j < agents.size(); ++j)
@@ -656,21 +667,21 @@ void Simulator::SFM()
             if (agents.size() == 1)
                 break;
             AGENT *other_agent = &agents[j];
-            double dis = (cur_agent->x - other_agent->x) * (cur_agent->x - other_agent->x) + (cur_agent->y - other_agent->y) * (cur_agent->y - other_agent->y); // Á½¸öagant¼äµÄ¾àÀë
+            double dis = (cur_agent->x - other_agent->x) * (cur_agent->x - other_agent->x) + (cur_agent->y - other_agent->y) * (cur_agent->y - other_agent->y); // ï¿½ï¿½ï¿½ï¿½agantï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
             if (dis > sense_range)
-                continue;                                                      // Èç¹û¾àÀë´óÓÚÃô¸Ð¾àÀë£¬¾Í±íÊ¾ÐÐÈË¼äÎÞÓ°Ïì(ÎÒÀí½âÊÇÕâÑù)
-            compute_agent_force(cur_agent, other_agent, &total_fx, &total_fy); // ¼ÆËãÍêµÄÁ¦´æÔÚtotal_fx¡¢total_fyÖÐ
+                continue;                                                      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½ë£¬ï¿½Í±ï¿½Ê¾ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½Ó°ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+            compute_agent_force(cur_agent, other_agent, &total_fx, &total_fy); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½total_fxï¿½ï¿½total_fyï¿½ï¿½
         }
 
-        /*¼ÆËãÇ½Ìå¡¢ÕÏ°­Îï¶ÔagentsµÄÓ°Ïì*/
+        /*ï¿½ï¿½ï¿½ï¿½Ç½ï¿½å¡¢ï¿½Ï°ï¿½ï¿½ï¿½ï¿½agentsï¿½ï¿½Ó°ï¿½ï¿½*/
         for (size_t j = 0; j < obstical_lines.size(); j++)
         {
-            double crx, cry; // agentµ½ÕÏ°­µÄ´¹Ö±µã×ø±ê
+            double crx, cry; // agentï¿½ï¿½ï¿½Ï°ï¿½ï¿½Ä´ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             double diw = Point_to_line_distance(x0, y0, obstical_lines[j].sx, obstical_lines[j].sy, obstical_lines[j].ex, obstical_lines[j].ey, obstical_lines[j].d, &crx, &cry);
             if (diw > sense_range)
                 continue;
-            // µ±0<t0<1Ê±,diw²ÅµÈÓÚvir_diw
-            //  niwx,niwyÎª±ê×¼»¯µÄ´¹Ö±ÏòÁ¿£¬ Ö¸Ïòagent,³âÁ¦
+            // ï¿½ï¿½0<t0<1Ê±,diwï¿½Åµï¿½ï¿½ï¿½vir_diw
+            //  niwx,niwyÎªï¿½ï¿½×¼ï¿½ï¿½ï¿½Ä´ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ö¸ï¿½ï¿½agent,ï¿½ï¿½ï¿½ï¿½
 
             double tmpx = abs(x0 - crx) > 1e-10 ? (x0 - crx) : 1e-10;
             double tmpy = abs(y0 - cry) > 1e-10 ? (y0 - cry) : 1e-10;
@@ -679,17 +690,17 @@ void Simulator::SFM()
             double niwx = tmpx / vir_diw;
             double niwy = tmpy / vir_diw;
 
-            // ¼ÆËã¹«Ê½Ç°°ë²¿·Ö
-            double drw = cur_agent->m / c_mass - diw;                            // Ò²¾ÍÊÇ¹«Ê½ÖÐri-diw
-            double fiw_1 = abs(A * exp(drw / B)) > 1e-20 ? A * exp(drw / B) : 0; // Ì«Ð¡µÄ»°Ö±½Ó¼Ç0
+            // ï¿½ï¿½ï¿½ã¹«Ê½Ç°ï¿½ë²¿ï¿½ï¿½
+            double drw = cur_agent->m / c_mass - diw;                            // Ò²ï¿½ï¿½ï¿½Ç¹ï¿½Ê½ï¿½ï¿½ri-diw
+            double fiw_1 = abs(A * exp(drw / B)) > 1e-20 ? A * exp(drw / B) : 0; // Ì«Ð¡ï¿½Ä»ï¿½Ö±ï¿½Ó¼ï¿½0
             if (drw > 0)
-            { // drw>0±íÊ¾agentÒÑ¾­×ã¹»¿¿½üÇ½Ìå£¨ÕÏ°­£©ÁË
+            { // drw>0ï¿½ï¿½Ê¾agentï¿½Ñ¾ï¿½ï¿½ã¹»ï¿½ï¿½ï¿½ï¿½Ç½ï¿½å£¨ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½
                 fiw_1 += k1 * drw;
             }
             double fniwx = fiw_1 * niwx;
             double fniwy = fiw_1 * niwy;
 
-            // ¼ÆËã¹«Ê½ºó°ë²¿·Ö
+            // ï¿½ï¿½ï¿½ã¹«Ê½ï¿½ï¿½ë²¿ï¿½ï¿½
             double fiw_kgx = 0;
             double fiw_kgy = 0;
             if (drw > 0)
@@ -700,33 +711,33 @@ void Simulator::SFM()
                 fiw_kgy = fiw_kg * (niwx);
             }
 
-            // ºÏÆðÀ´
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             total_fx += fniwx - fiw_kgx;
             total_fy += fniwy - fiw_kgy;
         }
 
-        /*¸ù¾Ý¼ÆËãºÃµÄÁ¦£¬¸üÐÂagents*/
+        /*ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½agents*/
 
-        // ¼ÓËÙ¶È±ä»¯
+        // ï¿½ï¿½ï¿½Ù¶È±ä»¯
         dax = dax + total_fx / cur_agent->m;
         day = day + total_fy / cur_agent->m;
 
-        // Êµ¼ÊËÙ¶ÈµÄ±ä»¯
+        // Êµï¿½ï¿½ï¿½Ù¶ÈµÄ±ä»¯
         cur_agent->vx = cur_agent->vx + dax * tick;
         cur_agent->vy = cur_agent->vy + day * tick;
 
         double dv = sqrt(cur_agent->vx * cur_agent->vx + cur_agent->vy * cur_agent->vy);
-        if (dv > maxv) // Èç¹ûËã³öµÄÊµ¼ÊËÙ¶È´óÓÚ×î´óËÙ¶È£¬ÖØÐÂ¼ÆËãÂú×ãÌõ¼þ
+        if (dv > maxv) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½Ù¶È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È£ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
-            cur_agent->vx = cur_agent->vx * maxv / dv; // Êµ¼ÊËÙ¶ÈµÄ±ä»¯
+            cur_agent->vx = cur_agent->vx * maxv / dv; // Êµï¿½ï¿½ï¿½Ù¶ÈµÄ±ä»¯
             cur_agent->vy = cur_agent->vy * maxv / dv;
         }
 
-        // Î»ÖÃµÄ±ä»¯
+        // Î»ï¿½ÃµÄ±ä»¯
         cur_agent->x = cur_agent->x + cur_agent->vx * tick;
         cur_agent->y = cur_agent->y + cur_agent->vy * tick;
 
-        // ¼ÇÂ¼Î»ÖÃ±ä»¯Î¢Ð¡µÄagent,ÎªÁË²¶»ñÕæÕý³öÎÊÌâµÄagent
+        // ï¿½ï¿½Â¼Î»ï¿½Ã±ä»¯Î¢Ð¡ï¿½ï¿½agent,Îªï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½agent
         if ((abs(cur_agent->last_x - cur_agent->x) + abs(cur_agent->last_y - cur_agent->y) < 1e-5) && ((cur_agent->isFind && cur_agent->isKnown) || (!cur_agent->isFind && !cur_agent->isKnown)))
         {
             cur_agent->record_time++;
@@ -743,26 +754,26 @@ void Simulator::SFM()
     }
 }
 
-// Ö÷Òªµü´ú¹ý³Ì
+// ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Simulator::step()
 {
     time_recoder->reset();
-    // ¸÷¸ö×´Ì¬·À¿¨ËÀµÄÐÐÎª
+    // ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª
     Stagnate_Avoid();
     // cout<<"time here1: "<<time_recoder->elapsed()<<endl;
     // time_recoder->reset();
 
-    // 1¡¢Random Walk
+    // 1ï¿½ï¿½Random Walk
     randomWalk();
     // cout<<"time here2: "<<time_recoder->elapsed()<<endl;
     // time_recoder->reset();
 
-    // 2¡¢Interaction with Maps
+    // 2ï¿½ï¿½Interaction with Maps
     SearchSign();
     // cout<<"time here3: "<<time_recoder->elapsed()<<endl;
     // time_recoder->reset();
 
-    // 3¡¢Walk torward to destination
+    // 3ï¿½ï¿½Walk torward to destination
     walkToDes();
     // cout<<"time here4: "<<time_recoder->elapsed()<<endl;
     // time_recoder->reset();
@@ -781,9 +792,9 @@ void Simulator::step()
 void Simulator::run_simulation()
 {
 
-    Patn_SignToEntrance(); // ÎªÃ¿¸ö±êÊ¶ÕÒµ½µ½¸÷¸ö³öÈë¿ÚµÄÂ·¾¶
+    Patn_SignToEntrance(); // ÎªÃ¿ï¿½ï¿½ï¿½ï¿½Ê¶ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Â·ï¿½ï¿½
 
-    vector<bool> flg_create; // ÓÃÓÚ±ê¼Çµ±Ç°ÄÄÐ©ÐÐÈËÒÑ¾­½øÈë³¡Ëù
+    vector<bool> flg_create; // ï¿½ï¿½ï¿½Ú±ï¿½Çµï¿½Ç°ï¿½ï¿½Ð©ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ë³¡ï¿½ï¿½
     for (size_t i{}; i < all_agents.size(); ++i)
         flg_create.push_back(false);
 
@@ -794,7 +805,7 @@ void Simulator::run_simulation()
         //     std::cout << i << "current agents:" << agents.size() << endl;
         // }
 
-        // ¸ù¾ÝÐÐÈËÊ±¼ä½«ÐÐÈË½øÈë³¡¾°
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä½«ï¿½ï¿½ï¿½Ë½ï¿½ï¿½ë³¡ï¿½ï¿½
         for (size_t j = 0; j < all_agents.size(); ++j)
         {
             if (i >= all_agents[j].create_time && !flg_create[j])
@@ -804,29 +815,29 @@ void Simulator::run_simulation()
             }
         }
 
-        // ¸ù¾ÝÄ£ÐÍ¸üÐÂÐÐÈËÎ»ÖÃ
+        // ï¿½ï¿½ï¿½ï¿½Ä£ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
         step();
 
-        // ¼ÇÂ¼ÏÂÊ±¼ä
+        // ï¿½ï¿½Â¼ï¿½ï¿½Ê±ï¿½ï¿½
         for (size_t j = 0; j < agents.size(); j++)
         {
             agents[j].travel_time += tick;
         }
 
-        // Ã¿Ãë¼ÇÂ¼ÐÐÈËµÄpressure
+        // Ã¿ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ëµï¿½pressure
         if (i % 50 == 0)
         {
             sum_pre = 0;
             for (size_t j = 0; j < agents.size(); j++)
             {
-                // tÊ±¿ÌµÄÐÐÈËjÓÐÁ½¸öÖ¸±êÃèÊöÑ¹Á¦£¬ÃÜ¶ÈºÍÖÜÎ§»ìÂÒ¶È(ÐÅÏ¢ìØ)¡£
+                // tÊ±ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½Ü¶Èºï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½Ò¶ï¿½(ï¿½ï¿½Ï¢ï¿½ï¿½)ï¿½ï¿½
                 double pressure = 0;
 
-                // 1¡¢ÃÜ¶È£¨È¡°ë¾¶R=3)
+                // 1ï¿½ï¿½ï¿½Ü¶È£ï¿½È¡ï¿½ë¾¶R=3)
                 int R = 3;
-                int local_density = 0; // ÐÐÈËÖÜÎ§µÄÁÚ¾ÓÊý
-                // 2¡¢ìØ
-                // ËÙ¶È¡¢·½Ïò
+                int local_density = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½Ú¾ï¿½ï¿½ï¿½
+                // 2ï¿½ï¿½ï¿½ï¿½
+                // ï¿½Ù¶È¡ï¿½ï¿½ï¿½ï¿½ï¿½
                 int panel_angle[12 + 1] = {0};   // n2 = 12
                 int panel_veloity[20 + 1] = {0}; // n1 = 20
                 for (size_t k = 0; k < agents.size(); k++)
@@ -835,8 +846,8 @@ void Simulator::run_simulation()
                         continue;
                     double dist = sqrt((agents[j].x - agents[k].x) * (agents[j].x - agents[k].x) + (agents[j].y - agents[k].y) * (agents[j].y - agents[k].y));
                     if (dist <= R)
-                    { // Í³¼ÆÈ¦ÄÚµÄÐÐÈË
-                        // ·½Ïò
+                    { // Í³ï¿½ï¿½È¦ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½
+                        // ï¿½ï¿½ï¿½ï¿½
                         local_density++;
                         double Wp_x = agents[k].vx;
                         double Wp_y = agents[k].vy;
@@ -852,20 +863,20 @@ void Simulator::run_simulation()
                             continue;
                         panel_angle[(int)(theta / (2 * PI / 12))] += 1;
                         // std::cout << agents[k].id<<' '<<(int)(theta / (2 * PI / 12)) << endl;
-                        // ËÙ¶È
+                        // ï¿½Ù¶ï¿½
                         double velo = sqrt(agents[k].vx * agents[k].vx + agents[k].vy * agents[k].vy);
                         if (velo > 5)
-                            velo = 5; // ×î´óËÙ¶È5
+                            velo = 5; // ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½5
                         panel_veloity[(int)(velo / (5.0 / 20))] += 1;
                         // std::cout << agents[k].id<<' '<< (int)(velo / (5.0 / 20)) << endl;
                     }
                 }
 
-                // ¼ÆËãìØ
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 double Ed = 0;
                 double Ev = 0;
                 if (local_density == 0)
-                    continue; // ÐÐÈËÃ»Ñ¹Á¦À²
+                    continue; // ï¿½ï¿½ï¿½ï¿½Ã»Ñ¹ï¿½ï¿½ï¿½ï¿½
                 for (int ii = 0; ii < 12; ++ii)
                 {
                     if (panel_angle[ii] == 0)
@@ -880,14 +891,14 @@ void Simulator::run_simulation()
                 }
                 pressure = local_density * Ed * Ev;
                 sum_pre += pressure;
-                // ´æµ½agentÖÐ
+                // ï¿½æµ½agentï¿½ï¿½
                 if (pressure > agents[j].max_pressure)
                 {
                     agents[j].max_pressure = pressure;
                 }
             }
-            // ·ÖÎöÃ¿Ãë¸÷Ïî²ÎÊý±ä»¯
-            // ÈËÊý±ä»¯
+            // ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä»¯
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ä»¯
             if (saveIndicatorsPerSecond)
                 outPressurePerSecond += (to_string((agents.size() == 0 ? 0 : (double)sum_pre / agents.size())) + ',');
         }
@@ -907,7 +918,7 @@ void Simulator::run_simulation()
     }
 
     // cout<<"_"<<sum_people<<endl;
-    // Êä³öÆ½¾ùÐÐ×ßÊ±¼ä
+    // ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
     for (size_t j = 0; j < agents.size(); j++)
     {
         total_time += agents[j].travel_time;
@@ -921,7 +932,7 @@ void Simulator::run_simulation()
     // std::cout << "avg_time is:" << total_time / sum_people << endl;
     avg_time = total_time / sum_people;
 
-    // Êä³öÐÐÈËÆ½¾ù×î´óÑ¹Á¦
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½
     for (size_t j = 0; j < agents.size(); j++)
     {
         avg_max_pressure += agents[j].max_pressure;
@@ -931,7 +942,7 @@ void Simulator::run_simulation()
     pressure = avg_max_pressure;
 
     // test code:how many agents left ? print their infomation
-    // cout << sum_people << endl;
+    //cout << sum_people << endl;
     // for (size_t i{0}; i < agents.size(); ++i)
     // {
     //     AGENT *cur_agent = &agents[i];

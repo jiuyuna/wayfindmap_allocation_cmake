@@ -11,7 +11,7 @@ using namespace std;
 IbeaSolver::IbeaSolver(int pop_size, int ind_size, int max_gens, int num_eva) : popsize{pop_size}, indsize{ind_size}, max_generations{max_gens}, eva_num{num_eva}, n_signages{ind_size / 2}
 {
 
-    outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/100people_sametraffic_" + scene_name + "_" + to_string(n_signages) + "signs_" + to_string(popsize) + "popsize_res", ios::out);
+    outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/newrndwalk_300people_6highest_bound" + scene_name + "_" + to_string(n_signages) + "signs_" + to_string(popsize) + "popsize_res", ios::out);
     // outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/demo.csv", ios::out);
     parent_pop = new Population(popsize, indsize);
     offspring_pop = new Population(popsize, indsize);
@@ -86,7 +86,7 @@ void IbeaSolver::initialize_population(Population *pop)
             greedy[i + 1] = available_points[rnd].Y;
         }
         memcpy(pop->ind[0]->xreal, greedy, 2 * n_signages * sizeof(double));
-        double SD[maxvar] = {52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16};
+        double SD[maxvar] = {51,10,65,74,35,71,14,72,51,61,91,65,53,39};
         memcpy(pop->ind[1]->xreal, SD, 2 * n_signages * sizeof(double));
         double WO[maxvar] = {13, 62, 24, 72, 41, 70, 52, 7, 52, 62, 52, 67, 63, 18, 64, 47, 77, 64, 102, 62};
         memcpy(pop->ind[2]->xreal, WO, 2 * n_signages * sizeof(double));
@@ -298,25 +298,25 @@ void IbeaSolver::crossover_mutation()
             {
                 // Խ�紦��
                 {
-                     // x
-                    // if (offspring_pop->ind[i]->xreal[2 * j] < 1)
-                    //     offspring_pop->ind[i]->xreal[2 * j] = 1;
-                    // if (offspring_pop->ind[i]->xreal[2 * j] > 39)
-                    //     offspring_pop->ind[i]->xreal[2 * j] = 39;
+                    // x
+                    if (offspring_pop->ind[i]->xreal[2 * j] < 1)
+                        offspring_pop->ind[i]->xreal[2 * j] = 1;
+                    if (offspring_pop->ind[i]->xreal[2 * j] > 39)
+                        offspring_pop->ind[i]->xreal[2 * j] = 39;
 
-                    // // y
-                    // if (offspring_pop->ind[i]->xreal[2 * j + 1] < 1)
-                    //     offspring_pop->ind[i]->xreal[2 * j + 1] = 1;
-                    // if (offspring_pop->ind[i]->xreal[2 * j + 1] > 39)
-                    //     offspring_pop->ind[i]->xreal[2 * j + 1] = 39;
+                    // y
+                    if (offspring_pop->ind[i]->xreal[2 * j + 1] < 1)
+                        offspring_pop->ind[i]->xreal[2 * j + 1] = 1;
+                    if (offspring_pop->ind[i]->xreal[2 * j + 1] > 39)
+                        offspring_pop->ind[i]->xreal[2 * j + 1] = 39;
 
                     //regeneration
                     //x
-                    if (offspring_pop->ind[i]->xreal[2 * j] < 1 || offspring_pop->ind[i]->xreal[2 * j] > 39)
-                        regeneration(offspring_pop->ind[i]);
-                    // y
-                    if (offspring_pop->ind[i]->xreal[2 * j + 1] < 1 || offspring_pop->ind[i]->xreal[2 * j + 1] > 39)
-                        regeneration(offspring_pop->ind[i]);
+                    // if (offspring_pop->ind[i]->xreal[2 * j] < 1 || offspring_pop->ind[i]->xreal[2 * j] > 39)
+                    //     regeneration(offspring_pop->ind[i]);
+                    // // y
+                    // if (offspring_pop->ind[i]->xreal[2 * j + 1] < 1 || offspring_pop->ind[i]->xreal[2 * j + 1] > 39)
+                    //     regeneration(offspring_pop->ind[i]);
                 }
             }
 
