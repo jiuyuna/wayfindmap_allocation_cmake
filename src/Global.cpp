@@ -749,7 +749,7 @@ void initialize()
     //��ʼ����������Լ����˵�����ʱ��?1?7
     //scene1/2 sameTraffic
     //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/entrance_traffic.txt";
-    //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/pedenstrains_timetable.txt";
+   //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/pedenstrains_timetable.txt";
 
     //scene1/2 differentTraffic
     //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_0highest/entrance_traffic.txt";

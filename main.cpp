@@ -91,9 +91,9 @@ int main()
 		// SD{51,10,65,74,35,71,14,72,51,61,91,65,53,39};
 		// WO{12,87,13,62,52,7,63,18,64,47,82,70,63,87};
 		// opt{}
-
-
-		double trial[D] = {12,87,13,62,52,7,63,18,64,47,82,70,63,87};
+		
+		//double trial[D] = {12,87,13,62,52,7,63,18,64,47,82,70,63,87};
+		double trial[D] = {68.25,16.25,23.375,79.2812,62,89,88.375,70.875,69,46,57.875,67,77.5449,61.3125};
 
 		// randomly
 		// for (int i = 0; i < n_signages * 2; i += 2)
@@ -137,7 +137,7 @@ int main()
 	else if (allocation_method == "scene1_arbitrary")
 	{
 		int num_threads = 30;
-		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/Comparison/" + scene_name + "_comparison" + to_string(n_signages), ios::out | ios::trunc);
+		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/Comparison/difftraffic_" + scene_name + "_comparison" + to_string(n_signages), ios::out | ios::trunc);
 		/*！！！！！！！！！！！！！！！！Greedy！！！！！！！！！！！！！！！！*/
 		double trial_greedy[D];
 		vector<ENTRANCE> temp(entrances);
@@ -180,7 +180,7 @@ int main()
 	else if (allocation_method == "scene2_arbitrary")
 	{
 		int num_threads = 30;
-		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/Comparison/" + scene_name + "_comparison" + to_string(n_signages), ios::out | ios::trunc);
+		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/Comparison/difftraffic" + scene_name + "_comparison" + to_string(n_signages), ios::out | ios::trunc);
 		/*！！！！！！！！！！！！！！！！Greedy！！！！！！！！！！！！！！！！*/
 		double trial_greedy[D];
 		vector<ENTRANCE> temp(entrances);
@@ -243,7 +243,8 @@ int main()
 			ths[i].join();
 
 		/*！！！！！！！！！！！！！！！！SD！！！！！！！！！！！！！！！！*/
-		double trial_SD[D]{52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16};
+		double trial_SD[D]{51,10,65,74,35,71,14,72,51,61,91,65,53,39};
+		// double trial_SD[D]{52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16};
 		// double trial_SD[D] = {94, 62, 51, 39, 61, 89, 53, 61, 81, 71, 23, 61, 64, 75, 15, 67, 59, 23, 65, 48, 13, 88, 81, 78, 34, 77, 68, 66, 65, 16, 37, 70, 52, 6};
 		of << "SD" << endl;
 		ths.clear();
@@ -253,8 +254,9 @@ int main()
 			ths[i].join();
 
 		/*！！！！！！！！！！！！！！！！WO！！！！！！！！！！！！！！！！*/
-		double trial_WO[D] = {13, 62, 24, 72, 41, 70, 52, 7, 52, 62, 52, 67, 63, 18, 64, 47, 77, 64, 102, 62};
-		// double trial_WO[D] = {37,73,12,87,13,62,16,70,24,72,41,70,47,73,52,7,52,27,54,35,54,55,57,34,57,7,64,47,77,64,87,73,102,62};
+		double trial_WO[D] = {12,87,13,62,52,7,63,18,64,47,82,70,63,87};
+		//10 double trial_WO[D] = {13, 62, 24, 72, 41, 70, 52, 7, 52, 62, 52, 67, 63, 18, 64, 47, 77, 64, 102, 62};
+		//17 double trial_WO[D] = {37,73,12,87,13,62,16,70,24,72,41,70,47,73,52,7,52,27,54,35,54,55,57,34,57,7,64,47,77,64,87,73,102,62};
 		of << "WO" << endl;
 		ths.clear();
 		for (int i = 0; i < num_threads; ++i)
@@ -272,7 +274,7 @@ int main()
 		// 1000 simulations
 		int num_simulations = 1000;
 		int num_threads = 30;
-		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/Comparison/scnen1_comparison_1000ranksum" + to_string(n_signages), ios::out | ios::trunc);
+		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/Comparison/diff_scene1_comparison_1000ranksum" + to_string(n_signages), ios::out | ios::trunc);
 		/*！！！！！！！！！！！！！！！！Greedy！！！！！！！！！！！！！！！！*/
 		double trial_greedy[D] = {};
 		vector<ENTRANCE> temp(entrances);
@@ -338,7 +340,8 @@ int main()
 		}
 
 		/*！！！！！！！！！！！！！！！！Selected solution！！！！！！！！！！！！！！！！*/
-		double trial_OPT[D] = {17.9341, 11.3176, 6, 20, 10.2354, 5.7783, 20, 32.525};
+		// double trial_OPT[D] = {5.06641,24.9131,35.1309,17.2144,20.0938,35.9375,15.1016,7.5625}; same
+		double trial_OPT[D] = {12.0312,14.3638,16.5,3.5,21.7109,5.25,27.5273,18.4429}; //diff
 		of << "OPT" << endl;
 		n = 0;
 		while (n != num_simulations)
@@ -366,7 +369,7 @@ int main()
 		// 1000 simulations
 		int num_simulations = 1000;
 		int num_threads = 30;
-		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/Comparison/scnen2_comparison_1000ranksum" + to_string(n_signages), ios::out | ios::trunc);
+		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/Comparison/same_scnen2_comparison_1000ranksum" + to_string(n_signages), ios::out | ios::trunc);
 		/*！！！！！！！！！！！！！！！！Greedy！！！！！！！！！！！！！！！！*/
 		double trial_greedy[D] = {};
 		vector<ENTRANCE> temp(entrances);
@@ -432,7 +435,8 @@ int main()
 		}
 
 		/*！！！！！！！！！！！！！！！！Selected solution！！！！！！！！！！！！！！！！*/
-		double trial_OPT[D] = {33.8881, 19.3932, 14.388, 25.3328, 11.7037, 7.4465, 21.7801, 33.81};
+		double trial_OPT[D] = {27.9958,18.3899,19.7121,12.251,21.5724,28.2712,13.0321,22.1061}; //same
+		//double trial_OPT[D] = {22.3552,11.7891,17.9062,12,11.5,14.9707,23.4375,20.7065}; //diff
 		of << "OPT" << endl;
 		n = 0;
 		while (n != num_simulations)
