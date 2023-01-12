@@ -29,6 +29,7 @@ Simulator::Simulator(double trial[], int num_signs)
         signage.y = trial[j + 1];
         signage.vca_r = 5;
         signage.vca_R = 15;
+        signage.load = 0;
         j += 2;
         for (int k = 0; k < n_entrances; ++k)
         {
@@ -333,6 +334,8 @@ void Simulator::SearchSign()
         AGENT *cur_agent = &agents[i];
         if (!cur_agent->isFind && !cur_agent->isKnown)
         {
+        
+        /**  proximity principle   
             // �׶�1�����˿���ָʾ�ƣ������������ݣ�������ָʾ����ȥ
             // ��һ�������ָʾ��
             double cur_min_dist = 100000.0;
@@ -354,7 +357,6 @@ void Simulator::SearchSign()
                     theta = 0;
                 else
                     theta = acos(WpGp / (Wp_mol * Gp_mol));
-
                 // �����ж����˺�ָʾ�Ƽ��Ƿ����ϰ�
                 if (dist < cur_min_dist && ((dist <= signages[j].vca_R && theta <= (cur_agent->FOV / 2)) || dist <= signages[j].vca_r) && !isObstacle(cur_agent->x, cur_agent->y, signages[j].x, signages[j].y))
                 {
@@ -372,43 +374,94 @@ void Simulator::SearchSign()
                 cur_agent->path.shrink_to_fit();
                 cur_agent->n_setp = 0;
             }
+        **/
+
+            //probility principle
+            for (int j = 0; j < n_signages; ++j)
+            {
+                if(cur_time%50!=0) continue;
+                // �����Ƿ��ڱ�ʶ��VCA��
+                double dist = sqrt((cur_agent->x - signages[j].x) * (cur_agent->x - signages[j].x) + (cur_agent->y - signages[j].y) * (cur_agent->y - signages[j].y));
+                if(dist > signages[j].vca_R) continue;
+                // ��ʶ�Ƿ������˵���Ұ��Χ��
+                double Wp_x = cur_agent->vx;
+                double Wp_y = cur_agent->vy;
+                double Gp_x = signages[j].x - cur_agent->x;
+                double Gp_y = signages[j].y - cur_agent->y;
+                double WpGp = Wp_x * Gp_x + Wp_y * Gp_y;
+                double Wp_mol = sqrt(Wp_x * Wp_x + Wp_y * Wp_y);
+                double Gp_mol = sqrt(Gp_x * Gp_x + Gp_y * Gp_y);
+                double theta;
+                if (Wp_mol * Gp_mol == 0) // ��ֹ��0
+                    theta = 0;
+                else
+                    theta = acos(WpGp / (Wp_mol * Gp_mol));
+                if(theta > (cur_agent->FOV / 2)) continue;
+                
+                int Nexpect = 20;
+                double P,Pd,Pv,Pp;
+                Pd = 1.0 - ((double)dist/signages[j].vca_R);
+                Pv = 1.0 - theta/(cur_agent->FOV / 2);
+                Pp = 1.0 - (min((double)signages[j].load,(double)Nexpect)/Nexpect);
+
+                double w0,w1,w2;
+                w0=w1=w2=(1.0/3);
+                P = w0*Pd + w1*Pv + w2*Pp;
+                //cout<<signages[j].load<<' '<<Pd<<' '<<Pv<<' '<<Pp<<' '<<P<<endl; 
+                double rnd = randval(0,1);
+                if(rnd <= P){
+                    cur_agent->sign_id = signages[j].sign_id; // ������ָʾ�Ƶ�id
+                    cur_agent->temp_gx = cur_agent->gx = signages[j].x;
+                    cur_agent->temp_gy = cur_agent->gy = signages[j].y;
+                    cur_agent->isFind = true;
+                    cur_agent->path.clear();
+                    cur_agent->path.shrink_to_fit();
+                    cur_agent->n_setp = 0;
+                    if(cur_agent->loading == 0){
+                        signages[cur_agent->sign_id].load++;   
+                    }
+                    //cout<<cur_agent->id<<' '<<Pd<<' '<<Pv<<' '<<j<<' '<<signages[j].load<<endl;
+                }
+
+            }
         }
         else if (cur_agent->isFind && !cur_agent->isKnown)
         {
-            // ��ָʾ����ȥ�����У�·��ͽ�ԭ��
-            if (cur_agent->loading == 0)
-            {
-                for (int j = 0; j < n_signages; ++j)
-                {
-                    double cur_dist = sqrt((cur_agent->x - signages[cur_agent->sign_id].x) * (cur_agent->x - signages[cur_agent->sign_id].x) + (cur_agent->y - signages[cur_agent->sign_id].y) * (cur_agent->y - signages[cur_agent->sign_id].y));
-                    double dist = sqrt((cur_agent->x - signages[j].x) * (cur_agent->x - signages[j].x) + (cur_agent->y - signages[j].y) * (cur_agent->y - signages[j].y));
-                    if (dist > cur_dist || cur_agent->sign_id == signages[j].sign_id)
-                        continue;
-                    double Wp_x = cur_agent->vx;
-                    double Wp_y = cur_agent->vy;
-                    double Gp_x = signages[j].x - cur_agent->x;
-                    double Gp_y = signages[j].y - cur_agent->y;
-                    double WpGp = Wp_x * Gp_x + Wp_y * Gp_y;
-                    double Wp_mol = sqrt(Wp_x * Wp_x + Wp_y * Wp_y);
-                    double Gp_mol = sqrt(Gp_x * Gp_x + Gp_y * Gp_y);
-                    double theta;
-                    if (Wp_mol * Gp_mol == 0) // ��ֹ��0
-                        theta = 0;
-                    else
-                        theta = acos(WpGp / (Wp_mol * Gp_mol));
-                    if (((dist <= cur_dist && theta <= (cur_agent->FOV / 2)) || dist <= signages[j].vca_r) && !isObstacle(cur_agent->x, cur_agent->y, signages[j].x, signages[j].y))
-                    {
-                        // cout << cur_agent->id << "from " << cur_agent->sign_id << "to " << signages[j].sign_id << endl;
-                        //  cout<<signages[j].sign_id<<' '<<dist<<" - "<<cur_agent->sign_id<<' '<<cur_dist<<endl;
-                        cur_agent->sign_id = signages[j].sign_id; // ������ָʾ�Ƶ�id
-                        cur_agent->temp_gx = cur_agent->gx = signages[j].x;
-                        cur_agent->temp_gy = cur_agent->gy = signages[j].y;
-                        cur_agent->path.clear();
-                        cur_agent->path.shrink_to_fit();
-                        cur_agent->n_setp = 0;
-                    }
-                }
-            }
+            // // ��ָʾ����ȥ�����У�·��ͽ�ԭ��
+            // When people walk toward a map but another one is found closer to him, the guy choose that one. 
+            // if (cur_agent->loading == 0)
+            // {
+            //     for (int j = 0; j < n_signages; ++j)
+            //     {
+            //         double cur_dist = sqrt((cur_agent->x - signages[cur_agent->sign_id].x) * (cur_agent->x - signages[cur_agent->sign_id].x) + (cur_agent->y - signages[cur_agent->sign_id].y) * (cur_agent->y - signages[cur_agent->sign_id].y));
+            //         double dist = sqrt((cur_agent->x - signages[j].x) * (cur_agent->x - signages[j].x) + (cur_agent->y - signages[j].y) * (cur_agent->y - signages[j].y));
+            //         if (dist > cur_dist || cur_agent->sign_id == signages[j].sign_id)
+            //             continue;
+            //         double Wp_x = cur_agent->vx;
+            //         double Wp_y = cur_agent->vy;
+            //         double Gp_x = signages[j].x - cur_agent->x;
+            //         double Gp_y = signages[j].y - cur_agent->y;
+            //         double WpGp = Wp_x * Gp_x + Wp_y * Gp_y;
+            //         double Wp_mol = sqrt(Wp_x * Wp_x + Wp_y * Wp_y);
+            //         double Gp_mol = sqrt(Gp_x * Gp_x + Gp_y * Gp_y);
+            //         double theta;
+            //         if (Wp_mol * Gp_mol == 0) // ��ֹ��0
+            //             theta = 0;
+            //         else
+            //             theta = acos(WpGp / (Wp_mol * Gp_mol));
+            //         if (((dist <= cur_dist && theta <= (cur_agent->FOV / 2)) || dist <= signages[j].vca_r) && !isObstacle(cur_agent->x, cur_agent->y, signages[j].x, signages[j].y))
+            //         {
+            //             // cout << cur_agent->id << "from " << cur_agent->sign_id << "to " << signages[j].sign_id << endl;
+            //             //  cout<<signages[j].sign_id<<' '<<dist<<" - "<<cur_agent->sign_id<<' '<<cur_dist<<endl;
+            //             cur_agent->sign_id = signages[j].sign_id; // ������ָʾ�Ƶ�id
+            //             cur_agent->temp_gx = cur_agent->gx = signages[j].x;
+            //             cur_agent->temp_gy = cur_agent->gy = signages[j].y;
+            //             cur_agent->path.clear();
+            //             cur_agent->path.shrink_to_fit();
+            //             cur_agent->n_setp = 0;
+            //         }
+            //     }
+            // }
 
             // �׶�2�����˸��ݻ�ȡָʾ�Ƶ���Ϣ��
             // ���˿���ָʾ�ƺ�Ӧ��ָ��signage_id
@@ -421,6 +474,7 @@ void Simulator::SearchSign()
                 // ��ʶ�Ƿ������˵���������Χ��
                 if (dist <= signages[j].vca_r && !isObstacle(cur_agent->x, cur_agent->y, cur_agent->gx, cur_agent->gy)) // && theta <= cur_agent->FOV/2
                 {
+
                     // ����֮�󣬶�ȡ��Ϣ��
                     if (cur_agent->loading < stag_time)
                     {
@@ -444,6 +498,10 @@ void Simulator::SearchSign()
                     cur_agent->temp_gy = entrances[cur_agent->exit_id].en_y;
 
                     cur_agent->isKnown = true; // ��ʾ�Ѿ�����,�Ҷ�ȡ����Ϣ��
+
+                    signages[cur_agent->sign_id].load--;
+                    
+
 
                     ////�����������ٶȷ���
                     // double d0 = sqrt((cur_agent->gx - cur_agent->x) * (cur_agent->gx - cur_agent->x) + (cur_agent->gy - cur_agent->y) * (cur_agent->gy - cur_agent->y));
@@ -798,17 +856,17 @@ void Simulator::run_simulation()
     for (size_t i{}; i < all_agents.size(); ++i)
         flg_create.push_back(false);
 
-    for (int i = 0; i < simulation_time; i++)
+    for (cur_time = 0; cur_time < simulation_time; cur_time++)
     {
-        // if (i % 1000 == 0 && i)
+        // if (cur_time % 1000 == 0 && cur_time)
         // {
-        //     std::cout << i << "current agents:" << agents.size() << endl;
+        //     std::cout << cur_time << "current agents:" << agents.size() << endl;
         // }
 
         // ��������ʱ�佫���˽��볡��
         for (size_t j = 0; j < all_agents.size(); ++j)
         {
-            if (i >= all_agents[j].create_time && !flg_create[j])
+            if (cur_time >= all_agents[j].create_time && !flg_create[j])
             {
                 flg_create[j] = true;
                 agents.push_back(all_agents[j]);
@@ -825,7 +883,7 @@ void Simulator::run_simulation()
         }
 
         // ÿ���¼���˵�pressure
-        if (i % 50 == 0)
+        if (cur_time % 50 == 0)
         {
             sum_pre = 0;
             for (size_t j = 0; j < agents.size(); j++)
@@ -905,7 +963,7 @@ void Simulator::run_simulation()
 
         if (saveTracks)
         {
-            if (i % 10 == 0)
+            if (cur_time % 10 == 0)
             {
                 *oFile1 << (int)agents.size() << endl;
                 for (size_t j = 0; j < agents.size(); j++)

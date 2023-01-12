@@ -24,12 +24,13 @@ public:
     double total_time;       //����ͳ���������������ѵ�ʱ��
     double avg_max_pressure; //ƽ���������ܵ������ѹ��
     double sum_pre;          //ĳһʱ�̣������ܵ�����ѹ��
+    int cur_time;
 
     // ������Ҫ���ص�����ָ��
     double avg_time;
     double pressure;
     //��������ļ�(���߳�ʱ����عر�)
-    static const bool saveTracks = true;
+    static const bool saveTracks = false;
     static const bool saveIndicatorsPerSecond = false;
     static const bool saveTimeTableAndKeepSame = true;
     string outPressurePerSecond = {}; //

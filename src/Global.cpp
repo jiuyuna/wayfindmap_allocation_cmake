@@ -5,8 +5,8 @@
 using namespace std;
 
 //�������� ȫ�ֱ���
-string scene_name = "scene3"; // scene1, scene2, scene3
-int n_signages = 7;
+string scene_name = "scene2"; // scene1, scene2, scene3
+int n_signages = 4;
 int simulation_time = 12000;
 int stag_time = (1/tick) * 10; //���˿���ָʾ��ͣ��ʱ��
 int Width;
@@ -577,7 +577,7 @@ void init_pedestrian(string traffic_path, string timetable_path)
             if(scene_name == "scene1" || scene_name == "scene2"){
                 need_sum_people = 100;
             }else if(scene_name == "scene3"){
-                need_sum_people = 300;
+                need_sum_people = 400;
             }
             cout<<"cant find time table of pedestrains. generate here!"<<endl;
 
@@ -748,8 +748,8 @@ void initialize()
 
     //��ʼ����������Լ����˵�����ʱ��?1?7
     //scene1/2 sameTraffic
-    //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/entrance_traffic.txt";
-   //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/pedenstrains_timetable.txt";
+    string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/entrance_traffic.txt";
+    string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/pedenstrains_timetable.txt";
 
     //scene1/2 differentTraffic
     //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_0highest/entrance_traffic.txt";
@@ -760,8 +760,8 @@ void initialize()
     //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_10s_elevator/" + scene_name + "_pedenstrains_timetable.txt";
     
     //7outer sameTraffic
-    string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/sametraffic/" + scene_name + "_entrance_traffic.txt";
-    string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/sametraffic/" + scene_name + "_pedenstrains_timetable.txt";
+    //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/sametraffic/" + scene_name + "_entrance_traffic.txt";
+    //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/sametraffic/" + scene_name + "_pedenstrains_timetable.txt";
     
     //7outer differentTraffic
     //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_entrance_traffic.txt";

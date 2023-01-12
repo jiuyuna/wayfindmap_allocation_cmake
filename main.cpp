@@ -53,11 +53,11 @@ int main()
 	time.reset();
 	initialize();
 
-	string allocation_method = "heatMap";
+	string allocation_method = "ibea";
 
 	if (allocation_method == "ibea")
 	{
-		IbeaSolver solver(50, 2 * n_signages, 300, 30); // 种群数、个体维度、最大迭代数、每个解的评估次数
+		IbeaSolver solver(30, 2 * n_signages, 200, 10); // 种群数、个体维度、最大迭代数、每个解的评估次数
 		cout << n_signages << endl;
 		solver.run();
 		return 0;
@@ -92,9 +92,11 @@ int main()
 		// WO{12,87,13,62,52,7,63,18,64,47,82,70,63,87};
 		// opt{}
 		
-		//double trial[D] = {12,87,13,62,52,7,63,18,64,47,82,70,63,87};
-		double trial[D] = {68.25,16.25,23.375,79.2812,62,89,88.375,70.875,69,46,57.875,67,77.5449,61.3125};
+		double trial[D] = {27.9958,18.3899,19.7121,12.251,21.5724,28.2712,13.0321,22.1061};
 
+		//double trial[D] = {38.5,61,56,65.2891,63.835,74.75,61.3828,77.5405,59.1797,83.8984,58.4375,89.125,59,26};
+		//double trial[D] = {21,61,69.875,73.5859,58,78.5,60.1406,88.6797,58,68.75,59,48,59,18};
+		
 		// randomly
 		// for (int i = 0; i < n_signages * 2; i += 2)
 		// {

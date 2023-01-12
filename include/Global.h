@@ -170,6 +170,8 @@ struct SIGNAGE
     double vca_r;
     //��ʶ�Ŀ�������
     double vca_R;
+    // present how many people are watching this signage.
+    double load;
     //��sign���������ڵ�·��
     vector<vector<double>> path[MAX_ENTRANCES];
 };
