@@ -53,11 +53,11 @@ int main()
 	time.reset();
 	initialize();
 
-	string allocation_method = "ibea";
+	string allocation_method = "heatMap";
 
 	if (allocation_method == "ibea")
 	{
-		IbeaSolver solver(30, 2 * n_signages, 200, 10); // 嶽蛤方、倖悶略業、恷寄亨旗方、耽倖盾議得浩肝方
+		IbeaSolver solver(50, 2 * n_signages, 200, 10); // 嶽蛤方、倖悶略業、恷寄亨旗方、耽倖盾議得浩肝方
 		cout << n_signages << endl;
 		solver.run();
 		return 0;
@@ -87,16 +87,13 @@ int main()
 		//  };
 		// 10elevator_greedy{23.5,66.5,57.4,18,57.4,37,57.4,57,57.4,77,77,69.5,38.5,66.5,38.5,73.5,31,70,23.5,73.5}
 		// //scene3_7outer
-		// greedy{12.5,57,68,87.5,98,62.5,70,47.5,68,17.5,47,7.5,3,87.5};
+		// greedy{12.5,57,68,87.5,98,62.5,70,47.5,68,17.5,47,7.5,7,87.5};
 		// SD{51,10,65,74,35,71,14,72,51,61,91,65,53,39};
 		// WO{12,87,13,62,52,7,63,18,64,47,82,70,63,87};
 		// opt{}
 		
-		double trial[D] = {27.9958,18.3899,19.7121,12.251,21.5724,28.2712,13.0321,22.1061};
+		double trial[D] = {43,61,52.5469,51.6211,61.5,86,59,78,56,89,84,61,55.1226,73.7109};
 
-		//double trial[D] = {38.5,61,56,65.2891,63.835,74.75,61.3828,77.5405,59.1797,83.8984,58.4375,89.125,59,26};
-		//double trial[D] = {21,61,69.875,73.5859,58,78.5,60.1406,88.6797,58,68.75,59,48,59,18};
-		
 		// randomly
 		// for (int i = 0; i < n_signages * 2; i += 2)
 		// {
@@ -342,8 +339,8 @@ int main()
 		}
 
 		/*！！！！！！！！！！！！！！！！Selected solution！！！！！！！！！！！！！！！！*/
-		// double trial_OPT[D] = {5.06641,24.9131,35.1309,17.2144,20.0938,35.9375,15.1016,7.5625}; same
-		double trial_OPT[D] = {12.0312,14.3638,16.5,3.5,21.7109,5.25,27.5273,18.4429}; //diff
+		//double trial_OPT[D] = {32.0322,19.5444,17.7766,7.04481,19.1751,33.4295,8.14856,19.0594}; //same
+		double trial_OPT[D] = { 17.0791,9.42188,8.3374,24.6521,25.4761,30.0098,23.4268,9.01416 }; //diff
 		of << "OPT" << endl;
 		n = 0;
 		while (n != num_simulations)
@@ -371,7 +368,7 @@ int main()
 		// 1000 simulations
 		int num_simulations = 1000;
 		int num_threads = 30;
-		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/Comparison/same_scnen2_comparison_1000ranksum" + to_string(n_signages), ios::out | ios::trunc);
+		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/Comparison/diff_scnen2_comparison_1000ranksum" + to_string(n_signages), ios::out | ios::trunc);
 		/*！！！！！！！！！！！！！！！！Greedy！！！！！！！！！！！！！！！！*/
 		double trial_greedy[D] = {};
 		vector<ENTRANCE> temp(entrances);
@@ -437,8 +434,8 @@ int main()
 		}
 
 		/*！！！！！！！！！！！！！！！！Selected solution！！！！！！！！！！！！！！！！*/
-		double trial_OPT[D] = {27.9958,18.3899,19.7121,12.251,21.5724,28.2712,13.0321,22.1061}; //same
-		//double trial_OPT[D] = {22.3552,11.7891,17.9062,12,11.5,14.9707,23.4375,20.7065}; //diff
+		//double trial_OPT[D] = {15.3075,19.0751,21.877,29.9824,19.2014,11.3929,26.2174,20.7749}; //same
+		double trial_OPT[D] =  {22.2553,15.4151,16.6,20.6482,22.6758,22.9531,19.5,12}; //diff
 		of << "OPT" << endl;
 		n = 0;
 		while (n != num_simulations)
@@ -466,7 +463,7 @@ int main()
 		// 1000 simulations
 		int num_simulations = 1000;
 		int num_threads = 30;
-		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/Comparison/scnen3_comparison_1000ranksum" + to_string(n_signages), ios::out | ios::trunc);
+		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/Comparison/same_scnen3_comparison_1000ranksum" + to_string(n_signages), ios::out | ios::trunc);
 		/*！！！！！！！！！！！！！！！！Greedy！！！！！！！！！！！！！！！！*/
 		double trial_greedy[D] = {};
 		vector<ENTRANCE> temp(entrances);
@@ -494,8 +491,9 @@ int main()
 		}
 
 		/*！！！！！！！！！！！！！！！！SD！！！！！！！！！！！！！！！！*/
-		double trial_SD[D]{52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16};
-		// double trial_SD[D] = {94, 62, 51, 39, 61, 89, 53, 61, 81, 71, 23, 61, 64, 75, 15, 67, 59, 23, 65, 48, 13, 88, 81, 78, 34, 77, 68, 66, 65, 16, 37, 70, 52, 6};
+		double trial_SD[D] = {51,10,65,74,35,71,14,72,51,61,91,65,53,39};
+		// double trial_SD[D]{52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16}; //10
+		// double trial_SD[D] = {94, 62, 51, 39, 61, 89, 53, 61, 81, 71, 23, 61, 64, 75, 15, 67, 59, 23, 65, 48, 13, 88, 81, 78, 34, 77, 68, 66, 65, 16, 37, 70, 52, 6}; //17
 		of << "SD" << endl;
 		n = 0;
 		while (n != num_simulations)
@@ -514,8 +512,9 @@ int main()
 		}
 
 		/*！！！！！！！！！！！！！！！！WO！！！！！！！！！！！！！！！！*/
-		double trial_WO[D] = {13, 62, 24, 72, 41, 70, 52, 7, 52, 62, 52, 67, 63, 18, 64, 47, 77, 64, 102, 62};
-		// double trial_WO[D] = {37,73,12,87,13,62,16,70,24,72,41,70,47,73,52,7,52,27,54,35,54,55,57,34,57,7,64,47,77,64,87,73,102,62};
+		double trial_WO[D] = {12,87,13,62,52,7,63,18,64,47,82,70,63,87};
+		// double trial_WO[D] = {13, 62, 24, 72, 41, 70, 52, 7, 52, 62, 52, 67, 63, 18, 64, 47, 77, 64, 102, 62}; //10
+		// double trial_WO[D] = {37,73,12,87,13,62,16,70,24,72,41,70,47,73,52,7,52,27,54,35,54,55,57,34,57,7,64,47,77,64,87,73,102,62}; //17
 		of << "WO" << endl;
 		n = 0;
 		while (n != num_simulations)
@@ -534,7 +533,8 @@ int main()
 		}
 
 		/*！！！！！！！！！！！！！！！！Selected solution！！！！！！！！！！！！！！！！*/
-		double trial_OPT[D] = {47.1655, 64.1277, 102, 64, 17, 79, 100, 61, 31.2643, 61, 63.7, 66.8, 53.2, 51.604, 64.6, 60.2, 34, 66, 35, 61};
+		double trial_OPT[D] = {49,61,22,79,43.625,69.4375,58,51.5,87,70,55,89,64,3}; //same
+		//double trial_OPT[D] = {43,61,52.5469,51.6211,61.5,86,59,78,56,89,84,61,55.1226,73.7109};//diff
 		of << "OPT" << endl;
 		n = 0;
 		while (n != num_simulations)
@@ -562,7 +562,8 @@ int main()
 		// 1000 simulations
 		int num_simulations = 1000;
 		int num_threads = 30;
-		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/indicators_persecond/" + scene_name + "_" + to_string(n_signages) + "avg_max_pre.csv", ios::out | ios::trunc);
+		ofstream of("/home/cyx/wayfindmap_allocation_cmake/result/indicators_persecond/diff" + scene_name + "_" + to_string(n_signages) + "avg_max_pre.csv", ios::out | ios::trunc);
+
 		/*！！！！！！！！！！！！！！！！Greedy！！！！！！！！！！！！！！！！*/
 		double trial_greedy[D] = {};
 		vector<ENTRANCE> temp(entrances);
@@ -589,7 +590,8 @@ int main()
 			}
 		}
 		/*！！！！！！！！！！！！！！！！SD！！！！！！！！！！！！！！！！*/
-		double trial_SD[D]{52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16};
+		double trial_SD[D] = {51,10,65,74,35,71,14,72,51,61,91,65,53,39};
+		// double trial_SD[D]{52, 61, 14, 72, 35, 71, 91, 65, 61, 89, 51, 10, 66, 74, 53, 39, 65, 48, 64, 16};
 		// double trial_SD[D] = {94, 62, 51, 39, 61, 89, 53, 61, 81, 71, 23, 61, 64, 75, 15, 67, 59, 23, 65, 48, 13, 88, 81, 78, 34, 77, 68, 66, 65, 16, 37, 70, 52, 6};
 		of << "SD" << endl;
 		n = 0;
@@ -609,7 +611,8 @@ int main()
 		}
 
 		/*！！！！！！！！！！！！！！！！WO！！！！！！！！！！！！！！！！*/
-		double trial_WO[D] = {13, 62, 24, 72, 41, 70, 52, 7, 52, 62, 52, 67, 63, 18, 64, 47, 77, 64, 102, 62};
+		double trial_WO[D] = {12,87,13,62,52,7,63,18,64,47,82,70,63,87};
+		// double trial_WO[D] = {13, 62, 24, 72, 41, 70, 52, 7, 52, 62, 52, 67, 63, 18, 64, 47, 77, 64, 102, 62};
 		// double trial_WO[D] = {37,73,12,87,13,62,16,70,24,72,41,70,47,73,52,7,52,27,54,35,54,55,57,34,57,7,64,47,77,64,87,73,102,62};
 		of << "WO" << endl;
 		n = 0;
@@ -629,7 +632,9 @@ int main()
 		}
 
 		/*！！！！！！！！！！！！！！！！Selected solution！！！！！！！！！！！！！！！！*/
-		double trial_OPT[D] = {47.1655, 64.1277, 102, 64, 17, 79, 100, 61, 31.2643, 61, 63.7, 66.8, 53.2, 51.604, 64.6, 60.2, 34, 66, 35, 61};
+		
+		double trial_OPT[D] = {25,79,89.25,66,52,7,64,48.25,52.5,46.5,66.9375,88.0938,56,89 }; //same
+		//double trial_OPT[D] = { 43,61,52.5469,51.6211,61.5,86,59,78,56,89,84,61,55.1226,73.7109};//diff
 		of << "OPT" << endl;
 		n = 0;
 		while (n != num_simulations)
@@ -652,9 +657,213 @@ int main()
 		cout << "Total time : " << time.elapsed() << endl;
 		return 0;
 	}
-	else
+	else if( allocation_method=="safety")
 	{
-		// testcode
+		vector<AGENT> agents{5};
+		agents[0].x = 10; agents[0].y = 10;
+		agents[0].vx = 0; agents[0].vy = 1;
+
+		if(1){
+			//s1
+			{
+				agents[1].x = 10; agents[1].y = 10.5;
+				agents[1].vx = 0; agents[1].vy = 1;
+				agents[2].x = 10.5; agents[2].y = 10;
+				agents[2].vx = 0; agents[2].vy = 1;
+				agents[3].x = 10; agents[3].y = 9.5;
+				agents[3].vx = 0; agents[3].vy = 1;
+				agents[4].x = 9.5; agents[4].y = 10;
+				agents[4].vx = 0; agents[4].vy = 1;
+			}
+		}else{
+			//s2
+			{
+				agents[1].x = 10; agents[1].y = 10.5;
+				agents[1].vx = 0; agents[1].vy = -1;
+				agents[2].x = 10.5; agents[2].y = 10;
+				agents[2].vx = -1; agents[2].vy = 0;
+				agents[3].x = 10; agents[3].y = 9.5;
+				agents[3].vx = 0; agents[3].vy = 1;
+				agents[4].x = 9.5; agents[4].y = 10;
+				agents[4].vx = 1; agents[4].vy = 0;
+			}
+		}
+
+		// if(0){
+		// 	//s1
+		// 	{
+		// 		agents[1].x = 10; agents[1].y = 10.5;
+		// 		agents[1].vx = 0; agents[1].vy = -1;
+		// 		agents[2].x = 10.5; agents[2].y = 10;
+		// 		agents[2].vx = -1; agents[2].vy = 0;
+		// 		agents[3].x = 10; agents[3].y = 9.5;
+		// 		agents[3].vx = 0; agents[3].vy = 1;
+		// 		agents[4].x = 9.5; agents[4].y = 10;
+		// 		agents[4].vx = 1; agents[4].vy = 0;
+		// 	}
+		// }else{
+		// 	//s2
+		// 	{
+		// 		agents[1].x = 10; agents[1].y = 10.2;
+		// 		agents[1].vx = 0; agents[1].vy = -1;
+		// 		agents[2].x = 10.2; agents[2].y = 10;
+		// 		agents[2].vx = -1; agents[2].vy = 0;
+		// 		agents[3].x = 10; agents[3].y = 9.8;
+		// 		agents[3].vx = 0; agents[3].vy = 1;
+		// 		agents[4].x = 9.8; agents[4].y = 10;
+		// 		agents[4].vx = 1; agents[4].vy = 0;
+		// 	}
+		// }	
+
+		// if(0){
+		// 	//s1
+		// 	{
+		// 		agents[1].x = 10; agents[1].y = 10.2;
+		// 		agents[1].vx = 0; agents[1].vy = 1;
+		// 		agents[2].x = 10.2; agents[2].y = 10;
+		// 		agents[2].vx = 0; agents[2].vy = 1;
+		// 		agents[3].x = 10; agents[3].y = 9.8;
+		// 		agents[3].vx = 0; agents[3].vy = 1;
+		// 		agents[4].x = 9.8; agents[4].y = 10;
+		// 		agents[4].vx = 0; agents[4].vy = 1;
+		// 	}
+		// }else{
+		// 	//s2
+		// 	{
+		// 		agents[1].x = 10; agents[1].y = 10.2;
+		// 		agents[1].vx = 0; agents[1].vy = -1;
+		// 		agents[2].x = 10.2; agents[2].y = 10;
+		// 		agents[2].vx = -1; agents[2].vy = 0;
+		// 		agents[3].x = 10; agents[3].y = 9.8;
+		// 		agents[3].vx = 0; agents[3].vy = 1;
+		// 		agents[4].x = 9.8; agents[4].y = 10;
+		// 		agents[4].vx = 1; agents[4].vy = 0;
+		// 	}
+		// }
+
+		//interaction force
+		AGENT *cur_agent = &agents[0];
+		double total_f = 0;
+		double total_fx = 0;
+		double total_fy = 0;
+		{
+		
+			for (size_t j = 0; j < agents.size(); ++j)
+			{
+				if (0 == j)
+					continue;
+				if (agents.size() == 1)
+					break;
+				AGENT *other_agent = &agents[j];
+				double dis = (cur_agent->x - other_agent->x) * (cur_agent->x - other_agent->x) + (cur_agent->y - other_agent->y) * (cur_agent->y - other_agent->y); // ????agant??????
+				if (dis > sense_range)
+					continue;                                                     
+				double d = sqrt((cur_agent->x - other_agent->x) * (cur_agent->x - other_agent->x) + (cur_agent->y - other_agent->y) * (cur_agent->y - other_agent->y)); // ????agant??????
+				if (d == 0)
+				{
+					printf("here d == 0 error but fixed...");
+					d = 1e-10;
+				}
+				cur_agent->m = other_agent->m = 80;
+				double delta_d = cur_agent->m / c_mass + other_agent->m / c_mass - d;
+				double fexp = A * exp(delta_d / B);
+				double fkg = delta_d < 0 ? 0 : k1 * delta_d;
+				double nijx = (cur_agent->x - other_agent->x) / d;
+				double nijy = (cur_agent->y - other_agent->y) / d;
+				double fnijx = (fexp + fkg) * nijx;
+				double fnijy = (fexp + fkg) * nijy;
+
+
+				// ????????
+				double fkgx = 0;
+				double fkgy = 0;
+				if (delta_d > 0)
+				{
+					double tix = -nijy;
+					double tiy = nijx;
+					fkgx = k2 * delta_d;
+					fkgy = k2 * delta_d;
+					double delta_vij = (other_agent->vx - cur_agent->vx) * tix + (other_agent->vy - cur_agent->vy) * tiy;
+					fkgx = fkgx * delta_vij * tix;
+					fkgy = fkgy * delta_vij * tiy;
+				}
+				total_fx += fabs(fnijx + fkgx);
+				total_fy += fabs(fnijy + fkgy);
+			}
+			total_f = sqrt(total_fx*total_fx+total_fy*total_fy);
+
+		}
+
+		//entropy
+		double Edmax{},Evmax{};
+		double Ed = 0;
+		double Ev = 0;
+		{
+			double R = 0.7;
+			int local_density = 0; 
+			int n1 = 20; int n2 = 36;
+			int panel_angle[n2 + 1] = {0};   // n2 = 36
+			int panel_veloity[n1 + 1] = {0}; // n1 = 20
+			int j=0;
+			for (size_t k = 0; k < agents.size(); k++)
+			{
+				double dist = sqrt((agents[j].x - agents[k].x) * (agents[j].x - agents[k].x) + (agents[j].y - agents[k].y) * (agents[j].y - agents[k].y));
+				if (dist <= R)
+				{ // ???????????
+					// ????
+					local_density++;
+					double Wp_x = agents[k].vx;
+					double Wp_y = agents[k].vy;
+					double Gp_x = 1;
+					double Gp_y = 0;
+					double WpGp = Wp_x * Gp_x + Wp_y * Gp_y;
+					double Wp_mol = sqrt(Wp_x * Wp_x + Wp_y * Wp_y);
+					double Gp_mol = sqrt(Gp_x * Gp_x + Gp_y * Gp_y);
+					double theta = acos(WpGp / (Wp_mol * Gp_mol));
+					if (agents[k].vy < 0)
+						theta = 2 * PI - theta;
+					if (agents[k].y < 0 || agents[k].y > Height || agents[k].x < 0 || agents[k].x > Width)
+						continue;
+					panel_angle[(int)(theta / (2 * PI / (double)n2))] += 1;
+					// std::cout << agents[k].id<<' '<<(int)(theta / (2 * PI / (double)n2)) << endl;
+					double velo = sqrt(agents[k].vx * agents[k].vx + agents[k].vy * agents[k].vy);
+					if (velo > 2)
+						velo = 2; 
+					panel_veloity[(int)(velo / (2.0 / (double)n1))] += 1;
+					// std::cout << agents[k].id<<' '<< (int)(velo / (5.0 / (double)n1)) << endl;
+				}
+			}
+
+			for (int ii = 0; ii < n2; ++ii)
+			{
+				if (panel_angle[ii] == 0)
+					continue;
+				Ed += -((double)panel_angle[ii] / (double)local_density) * log2((double)panel_angle[ii] / (double)local_density);
+
+			}
+			for (int ii = 0; ii < n1; ++ii)
+			{
+				if (panel_veloity[ii] == 0)
+					continue;
+				Ev += -((double)panel_veloity[ii] / (double)local_density) * log2((double)panel_veloity[ii] / (double)local_density);
+			}
+
+			for (int ii = 0; ii < n2; ++ii)
+			{
+				Edmax = (double)log2(n2);
+
+			}
+			for (int ii = 0; ii < n1; ++ii)
+			{
+				Evmax = (double)log2(n1);
+			}
+			
+		}
+
+		cout<<total_f<<endl;
+		cout<<Ed<<' '<<Ev<<' '<<Ed*Ev<<endl;
+		cout<<Edmax<<' '<<Evmax<<endl;
+
 		return 0;
 	}
 }

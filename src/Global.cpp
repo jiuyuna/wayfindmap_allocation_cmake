@@ -5,8 +5,9 @@
 using namespace std;
 
 //�������� ȫ�ֱ���
-string scene_name = "scene2"; // scene1, scene2, scene3
-int n_signages = 4;
+string scene_name = "scene3"; // scene1, scene2, scene3
+string traffic = "diff"; //same,diff
+int n_signages = 7;
 int simulation_time = 12000;
 int stag_time = (1/tick) * 10; //���˿���ָʾ��ͣ��ʱ��
 int Width;
@@ -746,26 +747,36 @@ void initialize()
     initAvailablePoints();
     cout << available_points.size() << endl;
 
+     string traffice_path = "";
+    string timetable_path = "";
     //��ʼ����������Լ����˵�����ʱ��?1?7
-    //scene1/2 sameTraffic
-    string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/entrance_traffic.txt";
-    string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/pedenstrains_timetable.txt";
-
-    //scene1/2 differentTraffic
-    //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_0highest/entrance_traffic.txt";
-    //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_0highest/pedenstrains_timetable.txt";
+    if((scene_name == "scene1" || scene_name == "scene2")&& traffic == "same"){
+        //scene1/2 sameTraffic
+         traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/entrance_traffic.txt";
+         timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_sametraffic/pedenstrains_timetable.txt";
+    }else if((scene_name == "scene1" || scene_name == "scene2")&& traffic == "diff"){
+        //scene1/2 differentTraffic
+         traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_0highest/entrance_traffic.txt";
+         timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene12_4s_0highest/pedenstrains_timetable.txt";
+    }else if(scene_name == "scene3" && traffic == "same"){
+            //7outer sameTraffic
+         traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/sametraffic/" + scene_name + "_entrance_traffic.txt";
+         timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/sametraffic/" + scene_name + "_pedenstrains_timetable.txt";
+    
+    }else if(scene_name == "scene3" && traffic == "diff"){
+            //7outer differentTraffic
+         traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_entrance_traffic.txt";
+         timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_pedenstrains_timetable.txt";
+    }
+    
+    if(traffice_path == "") exit(1);
+    
 
     //10elevator
     //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_10s_elevator/" + scene_name + "_entrance_traffic.txt";
     //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_10s_elevator/" + scene_name + "_pedenstrains_timetable.txt";
     
-    //7outer sameTraffic
-    //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/sametraffic/" + scene_name + "_entrance_traffic.txt";
-    //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/sametraffic/" + scene_name + "_pedenstrains_timetable.txt";
-    
-    //7outer differentTraffic
-    //string traffice_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_entrance_traffic.txt";
-    //string timetable_path = "/home/cyx/wayfindmap_allocation_cmake/config/scene3_7s_outer/onehightraffic/" + scene_name + "_pedenstrains_timetable.txt";
+
 
     init_pedestrian(traffice_path, timetable_path);
 

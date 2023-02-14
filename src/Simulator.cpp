@@ -44,7 +44,12 @@ Simulator::Simulator(double trial[], int num_signs)
     // �����ļ�����
     if (saveTracks)
     {
-        oFile1 = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/data1/demo.dat", ios::out | ios::trunc);
+        oFile1 = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/data/demo1.dat", ios::out | ios::trunc);
+    }
+
+    if (saveTracks2)
+    {
+        oFile2 = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/data/demo2.dat", ios::out | ios::trunc);
     }
 
     time_recoder = new Timer();
@@ -883,29 +888,149 @@ void Simulator::run_simulation()
         }
 
         // ÿ���¼���˵�pressure
-        if (cur_time % 50 == 0)
-        {
+        // if (cur_time % 50 == 0)
+        // {
+        //     sum_pre = 0;
+        //     for (size_t j = 0; j < agents.size(); j++)
+        //     {
+        //         // tʱ�̵�����j������ָ������ѹ�����ܶȺ���Χ���Ҷ�(��Ϣ��)��
+        //         double pressure = 0;
+        //         // 1���ܶȣ�ȡ�뾶R=3)
+        //         int R = 3;
+        //         int local_density = 0; // ������Χ���ھ���
+        //         // 2����
+        //         // �ٶȡ�����
+        //         int panel_angle[12 + 1] = {0};   // n2 = 12
+        //         int panel_veloity[20 + 1] = {0}; // n1 = 20
+        //         for (size_t k = 0; k < agents.size(); k++)
+        //         {
+        //             if (agents[j].id == agents[k].id)
+        //                 continue;
+        //             double dist = sqrt((agents[j].x - agents[k].x) * (agents[j].x - agents[k].x) + (agents[j].y - agents[k].y) * (agents[j].y - agents[k].y));
+        //             if (dist <= R)
+        //             { // ͳ��Ȧ�ڵ�����
+        //                 // ����
+        //                 local_density++;
+        //                 double Wp_x = agents[k].vx;
+        //                 double Wp_y = agents[k].vy;
+        //                 double Gp_x = 1;
+        //                 double Gp_y = 0;
+        //                 double WpGp = Wp_x * Gp_x + Wp_y * Gp_y;
+        //                 double Wp_mol = sqrt(Wp_x * Wp_x + Wp_y * Wp_y);
+        //                 double Gp_mol = sqrt(Gp_x * Gp_x + Gp_y * Gp_y);
+        //                 double theta = acos(WpGp / (Wp_mol * Gp_mol));
+        //                 if (agents[k].vy < 0)
+        //                     theta = 2 * PI - theta;
+        //                 if (agents[k].y < 0 || agents[k].y > Height || agents[k].x < 0 || agents[k].x > Width)
+        //                     continue;
+        //                 panel_angle[(int)(theta / (2 * PI / 12))] += 1;
+        //                 // std::cout << agents[k].id<<' '<<(int)(theta / (2 * PI / 12)) << endl;
+        //                 // �ٶ�
+        //                 double velo = sqrt(agents[k].vx * agents[k].vx + agents[k].vy * agents[k].vy);
+        //                 if (velo > 5)
+        //                     velo = 5; // ����ٶ�5
+        //                 panel_veloity[(int)(velo / (5.0 / 20))] += 1;
+        //                 // std::cout << agents[k].id<<' '<< (int)(velo / (5.0 / 20)) << endl;
+        //             }
+        //         }
+        //         // ������
+        //         double Ed = 0;
+        //         double Ev = 0;
+        //         if (local_density == 0)
+        //             continue; // ����ûѹ����
+        //         for (int ii = 0; ii < 12; ++ii)
+        //         {
+        //             if (panel_angle[ii] == 0)
+        //                 continue;
+        //             Ed += -((double)panel_angle[ii] / (double)local_density) * log2((double)panel_angle[ii] / (double)local_density);
+        //         }
+        //         for (int ii = 0; ii < 20; ++ii)
+        //         {
+        //             if (panel_veloity[ii] == 0)
+        //                 continue;
+        //             Ev += -((double)panel_veloity[ii] / (double)local_density) * log2((double)panel_veloity[ii] / (double)local_density);
+        //         }
+        //         pressure = local_density * Ed * Ev;
+        //         sum_pre += pressure;
+        //         // �浽agent��
+        //         if (pressure > agents[j].max_pressure)
+        //         {
+        //             agents[j].max_pressure = pressure;
+        //         }
+        //     }
+        //     // ����ÿ���������仯
+        //     // �����仯
+        //     if (saveIndicatorsPerSecond)
+        //         outPressurePerSecond += (to_string((agents.size() == 0 ? 0 : (double)sum_pre / agents.size())) + ',');
+        // }
+        
+        if(cur_time%50==0){
             sum_pre = 0;
             for (size_t j = 0; j < agents.size(); j++)
             {
-                // tʱ�̵�����j������ָ������ѹ�����ܶȺ���Χ���Ҷ�(��Ϣ��)��
                 double pressure = 0;
+                double R = 0.7;
+                //interaction force
+                AGENT *cur_agent = &agents[j];
+                double total_f = 0;
+                double total_fx = 0;
+                double total_fy = 0;
+                for (size_t k = 0; k < agents.size(); ++k)
+                {
+                    if (j == k)
+                        continue;
+                    if (agents.size() == 1)
+                        break;
+                    AGENT *other_agent = &agents[k];
+                    if(other_agent->travel_time<=4) continue; // avoid compute the overlap when people enter                                           
+                    double d = sqrt((cur_agent->x - other_agent->x) * (cur_agent->x - other_agent->x) + (cur_agent->y - other_agent->y) * (cur_agent->y - other_agent->y)); // ????agant??????
+                    if (d > R)
+                        continue;   
+                    if (d == 0)
+                    {
+                        printf("here d == 0 error but fixed...");
+                        d = 1e-10;
+                    }
+                    double delta_d = cur_agent->m / c_mass + other_agent->m / c_mass - d;
+                    double fexp = A * exp(delta_d / B);
+                    double fkg = delta_d < 0 ? 0 : k1 * delta_d;
+                    double nijx = (cur_agent->x - other_agent->x) / d;
+                    double nijy = (cur_agent->y - other_agent->y) / d;
+                    double fnijx = (fexp + fkg) * nijx;
+                    double fnijy = (fexp + fkg) * nijy;
 
-                // 1���ܶȣ�ȡ�뾶R=3)
-                int R = 3;
-                int local_density = 0; // ������Χ���ھ���
-                // 2����
-                // �ٶȡ�����
-                int panel_angle[12 + 1] = {0};   // n2 = 12
-                int panel_veloity[20 + 1] = {0}; // n1 = 20
+                    // ????????
+                    double fkgx = 0;
+                    double fkgy = 0;
+                    if (delta_d > 0)
+                    {
+                        double tix = -nijy;
+                        double tiy = nijx;
+                        fkgx = k2 * delta_d;
+                        fkgy = k2 * delta_d;
+                        double delta_vij = (other_agent->vx - cur_agent->vx) * tix + (other_agent->vy - cur_agent->vy) * tiy;
+                        fkgx = fkgx * delta_vij * tix;
+                        fkgy = fkgy * delta_vij * tiy;
+                    }
+                    total_fx += fabs(fnijx + fkgx);
+                    total_fy += fabs(fnijy + fkgy);
+                }
+                total_f = sqrt(total_fx*total_fx+total_fy*total_fy);
+
+                //entropy
+                double Ed = 0;
+                double Ev = 0;
+                
+                int local_density = 0; 
+                int n1 = 20; int n2 = 36;
+                int panel_angle[n2 + 1] = {0};   // n2 = 36
+                int panel_veloity[n1 + 1] = {0}; // n1 = 20
                 for (size_t k = 0; k < agents.size(); k++)
                 {
-                    if (agents[j].id == agents[k].id)
-                        continue;
                     double dist = sqrt((agents[j].x - agents[k].x) * (agents[j].x - agents[k].x) + (agents[j].y - agents[k].y) * (agents[j].y - agents[k].y));
                     if (dist <= R)
-                    { // ͳ��Ȧ�ڵ�����
-                        // ����
+                    { // ???????????
+                        // ????
                         local_density++;
                         double Wp_x = agents[k].vx;
                         double Wp_y = agents[k].vy;
@@ -919,48 +1044,46 @@ void Simulator::run_simulation()
                             theta = 2 * PI - theta;
                         if (agents[k].y < 0 || agents[k].y > Height || agents[k].x < 0 || agents[k].x > Width)
                             continue;
-                        panel_angle[(int)(theta / (2 * PI / 12))] += 1;
-                        // std::cout << agents[k].id<<' '<<(int)(theta / (2 * PI / 12)) << endl;
-                        // �ٶ�
+                        panel_angle[(int)(theta / (2 * PI / (double)n2))] += 1;
+                        // std::cout << agents[k].id<<' '<<(int)(theta / (2 * PI / (double)n2)) << endl;
                         double velo = sqrt(agents[k].vx * agents[k].vx + agents[k].vy * agents[k].vy);
-                        if (velo > 5)
-                            velo = 5; // ����ٶ�5
-                        panel_veloity[(int)(velo / (5.0 / 20))] += 1;
-                        // std::cout << agents[k].id<<' '<< (int)(velo / (5.0 / 20)) << endl;
+                        if (velo > 2)
+                            velo = 2; 
+                        panel_veloity[(int)(velo / (2.0 / (double)n1))] += 1;
+                        // std::cout << agents[k].id<<' '<< (int)(velo / (5.0 / (double)n1)) << endl;
                     }
                 }
 
-                // ������
-                double Ed = 0;
-                double Ev = 0;
-                if (local_density == 0)
-                    continue; // ����ûѹ����
-                for (int ii = 0; ii < 12; ++ii)
+                for (int ii = 0; ii < n2; ++ii)
                 {
                     if (panel_angle[ii] == 0)
                         continue;
                     Ed += -((double)panel_angle[ii] / (double)local_density) * log2((double)panel_angle[ii] / (double)local_density);
+
                 }
-                for (int ii = 0; ii < 20; ++ii)
+                for (int ii = 0; ii < n1; ++ii)
                 {
                     if (panel_veloity[ii] == 0)
                         continue;
                     Ev += -((double)panel_veloity[ii] / (double)local_density) * log2((double)panel_veloity[ii] / (double)local_density);
                 }
-                pressure = local_density * Ed * Ev;
-                sum_pre += pressure;
-                // �浽agent��
+
+                // if(cur_agent->id == 10)
+                //     cout<<cur_time%50<<'-'<<local_density<<' '<<total_f<<' '<<Ed<<' '<<Ev<<' '<<Ed * Ev/(log2(n1)*log2(n2))<<endl;
+             
+                pressure =  exp(((Ed * Ev)/(log2(n1)*log2(n2))))*(total_f);
+                
                 if (pressure > agents[j].max_pressure)
                 {
                     agents[j].max_pressure = pressure;
                 }
-            }
-            // ����ÿ���������仯
-            // �����仯
-            if (saveIndicatorsPerSecond)
-                outPressurePerSecond += (to_string((agents.size() == 0 ? 0 : (double)sum_pre / agents.size())) + ',');
-        }
+                sum_pre += pressure;
 
+            }
+            if (saveIndicatorsPerSecond)
+                outPressurePerSecond += (to_string((agents.size() == 0 ? 0 : (double)sum_pre / agents.size())) + ',');  
+        }
+       
         if (saveTracks)
         {
             if (cur_time % 10 == 0)
@@ -970,6 +1093,17 @@ void Simulator::run_simulation()
                 {
                     *oFile1 << agents[j].x << '\t' << agents[j].y << endl;
                     // cout<< agents[j].x << '\t' << agents[j].y << endl;
+                }
+            }
+        }
+        if (saveTracks2)
+        {
+            if (cur_time % 50 == 0)
+            {
+                *oFile2 <<(cur_time / 50)<<'\t'<< (int)agents.size() << endl;
+                for (size_t j = 0; j < agents.size(); j++)
+                {
+                    *oFile2 << agents[j].x << '\t' << agents[j].y << '\t' << agents[j].vx<< '\t' << agents[j].vy<< endl;
                 }
             }
         }
@@ -993,11 +1127,15 @@ void Simulator::run_simulation()
     // �������ƽ�����ѹ��
     for (size_t j = 0; j < agents.size(); j++)
     {
+
         avg_max_pressure += agents[j].max_pressure;
     }
     // std::cout << "avg_max_pressure is:" << avg_max_pressure / sum_people << endl;
     avg_max_pressure = avg_max_pressure / sum_people;
+
     pressure = avg_max_pressure;
+
+    //cout<<outPressurePerSecond<<endl;
 
     // test code:how many agents left ? print their infomation
     //cout << sum_people << endl;

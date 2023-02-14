@@ -11,7 +11,7 @@ using namespace std;
 IbeaSolver::IbeaSolver(int pop_size, int ind_size, int max_gens, int num_eva) : popsize{pop_size}, indsize{ind_size}, max_generations{max_gens}, eva_num{num_eva}, n_signages{ind_size / 2}
 {
 
-    outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/density_probilityFind_100people_same_bound" + scene_name + "_" + to_string(n_signages) + "signs_" + to_string(popsize) + "popsize_res", ios::out);
+    outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/n_siagns_same" + scene_name + "_" + to_string(n_signages) + "signs_" + to_string(popsize) + "popsize_res", ios::out);
     // outfile = new ofstream("/home/cyx/wayfindmap_allocation_cmake/result/IBEA/demo.csv", ios::out);
     parent_pop = new Population(popsize, indsize);
     offspring_pop = new Population(popsize, indsize);
@@ -412,7 +412,7 @@ int cmp_greater(const void *v1, const void *v2)
 
 //Be inspired by "https://github.com/renansantosmendes/WFG_Hypervolume/blob/master/wfg.c"
 void IbeaSolver::caculator_hv2D(Population *pop){
-    vector<double> ref{200,500}; //reference point
+    vector<double> ref{200,10000}; //reference point
     // the diffpop present the distance between individual and reference point on each dimension.
     Population diffpop(popsize,indsize); //get copy
     for (int i = 0; i < popsize; i++) {

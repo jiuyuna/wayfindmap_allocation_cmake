@@ -31,12 +31,14 @@ public:
     double pressure;
     //��������ļ�(���߳�ʱ����عر�)
     static const bool saveTracks = false;
+    static const bool saveTracks2 = true; //save pos and velocity
     static const bool saveIndicatorsPerSecond = false;
     static const bool saveTimeTableAndKeepSame = true;
     string outPressurePerSecond = {}; //
 
     //�ļ�����ӿ�
     ofstream *oFile1;
+    ofstream *oFile2;
 
     //��¼����ʱ��
     Timer *time_recoder;
